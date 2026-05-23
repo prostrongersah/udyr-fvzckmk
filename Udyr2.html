@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0a0e1a">
+<title>Udyr Matchup Codex</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://ddragon.leagueoflegends.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg-0:#070a13;--bg-1:#0d1320;--bg-2:#141c2e;--bg-3:#1c2742;--line:rgba(200,170,110,0.18);--line-strong:rgba(200,170,110,0.42);--gold:#c8aa6e;--gold-bright:#f0e6d2;--gold-deep:#785a28;--hex-blue:#0bc6e3;--danger:#c8443c;--text:#cdbe91;--text-dim:#a09b8c;--text-muted:#5b5a56}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background:var(--bg-0);color:var(--text);font-family:'Inter Tight',sans-serif;font-weight:400;overflow-x:hidden}
+body{background:radial-gradient(ellipse at top,rgba(11,198,227,0.06),transparent 50%),radial-gradient(ellipse at bottom,rgba(200,170,110,0.04),transparent 50%),linear-gradient(180deg,var(--bg-0) 0%,var(--bg-1) 100%);min-height:100vh;background-attachment:fixed}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(rgba(200,170,110,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(200,170,110,0.025) 1px,transparent 1px);background-size:48px 48px;mask-image:radial-gradient(ellipse at center,black 30%,transparent 80%)}
+header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg,rgba(7,10,19,0.97) 0%,rgba(7,10,19,0.85) 100%);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:14px 20px}
+.brand{display:flex;align-items:center;gap:14px;max-width:1400px;margin:0 auto}
+.brand-mark{width:42px;height:42px;flex-shrink:0;background:linear-gradient(135deg,var(--gold-deep),var(--gold));clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:flex;align-items:center;justify-content:center;position:relative}
+.brand-mark::before{content:'';position:absolute;inset:2px;background:var(--bg-0);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)}
+.brand-mark span{position:relative;z-index:1;color:var(--gold-bright);font-family:'Cinzel',serif;font-weight:700;font-size:18px}
+.brand-text h1{margin:0;font-family:'Cinzel',serif;font-weight:600;font-size:18px;letter-spacing:0.18em;color:var(--gold-bright);text-transform:uppercase}
+.brand-text p{margin:0;font-size:11px;color:var(--text-muted);letter-spacing:0.2em;text-transform:uppercase}
+.patch-tag{margin-left:8px;font-size:9px;color:var(--text-muted);font-family:'Inter Tight',sans-serif;letter-spacing:0.08em;border:1px solid var(--line);padding:1px 6px}
+.header-actions{margin-left:auto;display:flex;gap:8px}
+.icon-btn{background:transparent;border:1px solid var(--line);color:var(--text-dim);width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s ease;font-size:14px}
+.icon-btn:hover{border-color:var(--gold);color:var(--gold-bright);background:rgba(200,170,110,0.08)}
+main{max-width:1400px;margin:0 auto;padding:24px 20px 80px}
+.selector-wrap,.matchup-view{border:1px solid var(--line);background:linear-gradient(180deg,rgba(20,28,46,0.4),rgba(13,19,32,0.6));padding:24px;position:relative}
+.matchup-view{padding:0}
+.selector-wrap::before,.selector-wrap::after,.matchup-view::before,.matchup-view::after{content:'';position:absolute;width:14px;height:14px;border:1px solid var(--gold)}
+.selector-wrap::before,.matchup-view::before{top:-1px;left:-1px;border-right:none;border-bottom:none}
+.selector-wrap::after,.matchup-view::after{top:-1px;right:-1px;border-left:none;border-bottom:none}
+.corner-bl,.corner-br{position:absolute;width:14px;height:14px;border:1px solid var(--gold)}
+.corner-bl{bottom:-1px;left:-1px;border-right:none;border-top:none}
+.corner-br{bottom:-1px;right:-1px;border-left:none;border-top:none}
+.section-label{font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.32em;color:var(--gold);text-transform:uppercase;margin:0 0 14px;display:flex;align-items:center;gap:10px}
+.section-label::before,.section-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--line-strong),transparent)}
+.section-label::before{max-width:30px}
+.search-row{margin-bottom:18px}
+.search-input{width:100%;background:rgba(7,10,19,0.6);border:1px solid var(--line);color:var(--gold-bright);padding:12px 16px;font-family:'Inter Tight',sans-serif;font-size:15px;outline:none;letter-spacing:0.04em}
+.search-input:focus{border-color:var(--gold);box-shadow:inset 0 0 0 1px rgba(200,170,110,0.2)}
+.search-input::placeholder{color:var(--text-muted);font-style:italic}
+
+/* === iOS-COMPAT GRID === */
+.champion-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(82px,1fr));gap:8px;max-height:62vh;overflow-y:auto;padding:4px;scrollbar-width:thin;scrollbar-color:var(--gold-deep) transparent}
+.champion-grid::-webkit-scrollbar{width:6px}
+.champion-grid::-webkit-scrollbar-thumb{background:var(--gold-deep)}
+.champion-card{position:relative;cursor:pointer;border:1px solid transparent;transition:all 0.18s ease;background:var(--bg-2);overflow:hidden;width:100%}
+.champion-card::before{content:'';display:block;padding-top:100%}
+.champion-card img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.3s}
+.champion-card:hover{border-color:var(--gold)}
+.champion-card:hover img{transform:scale(1.08)}
+.champion-card.has-data{border-color:rgba(11,198,227,0.4)}
+.champion-card.has-data .dot{position:absolute;top:3px;right:3px;width:7px;height:7px;background:var(--hex-blue);border-radius:50%;box-shadow:0 0 8px var(--hex-blue);z-index:2}
+.champion-card .cname{position:absolute;left:0;right:0;bottom:0;font-size:9px;color:var(--gold-bright);background:linear-gradient(180deg,transparent,rgba(0,0,0,0.92));padding:14px 4px 4px;text-align:center;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;z-index:1}
+
+.matchup-header{display:flex;align-items:center;gap:16px;padding:18px 22px;border-bottom:1px solid var(--line);background:linear-gradient(90deg,rgba(120,90,40,0.12),transparent)}
+.matchup-portrait{width:64px;height:64px;flex-shrink:0;border:1px solid var(--gold);position:relative;overflow:hidden}
+.matchup-portrait img{width:100%;height:100%;object-fit:cover;display:block}
+.matchup-portrait::before{content:'VS';position:absolute;top:-18px;left:50%;transform:translateX(-50%);background:var(--bg-1);color:var(--gold);padding:1px 8px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;border:1px solid var(--gold);z-index:2}
+.matchup-title{flex:1;min-width:0}
+.matchup-title h2{margin:0;font-family:'Cinzel',serif;font-weight:600;color:var(--gold-bright);font-size:22px;letter-spacing:0.08em;text-transform:uppercase;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.matchup-title p{margin:2px 0 0;font-size:11px;color:var(--text-muted);letter-spacing:0.18em;text-transform:uppercase}
+.back-btn{background:transparent;border:1px solid var(--line);color:var(--text-dim);padding:8px 14px;cursor:pointer;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;transition:all 0.2s;flex-shrink:0}
+.back-btn:hover{border-color:var(--gold);color:var(--gold-bright)}
+.tabs-bar{display:flex;align-items:stretch;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+.tabs-bar::-webkit-scrollbar{display:none}
+.tab{background:transparent;border:none;border-right:1px solid var(--line);color:var(--text-dim);padding:12px 20px;cursor:pointer;font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;transition:all 0.2s;white-space:nowrap;display:flex;align-items:center;gap:8px;flex-shrink:0;position:relative}
+.tab:hover{color:var(--gold-bright);background:rgba(200,170,110,0.05)}
+.tab.active{color:var(--gold-bright);background:rgba(200,170,110,0.1)}
+.tab.active::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--gold)}
+.tab .x{opacity:0.5;font-size:14px;line-height:1}
+.tab .x:hover{opacity:1;color:var(--danger)}
+.tab-add{background:transparent;border:none;color:var(--gold);cursor:pointer;padding:12px 16px;font-size:18px;font-weight:300;line-height:1;transition:all 0.2s}
+.tab-add:hover{background:rgba(200,170,110,0.08);color:var(--gold-bright)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}
+.pane{background:var(--bg-1);padding:20px;min-height:400px}
+.subhead{font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.32em;color:var(--gold);text-transform:uppercase;margin:0 0 12px}
+.rune-tree{margin-bottom:20px}
+.tree-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.tree-icon{width:28px;height:28px;cursor:pointer;flex-shrink:0}
+.tree-icon img{width:100%;height:100%;display:block}
+.tree-icon .placeholder{width:100%;height:100%;border:1px dashed var(--line)}
+.tree-name{font-size:13px;color:var(--gold-bright);font-weight:500;letter-spacing:0.06em}
+.keystone-row{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.keystone-slot{width:54px;height:54px;border:1px solid var(--line);cursor:pointer;position:relative;background:var(--bg-2);transition:all 0.2s;overflow:hidden}
+.keystone-slot img{width:100%;height:100%;display:block;filter:grayscale(0.5) brightness(0.6)}
+.keystone-slot:hover{border-color:var(--gold-deep)}
+.keystone-slot:hover img{filter:grayscale(0.2) brightness(0.85)}
+.keystone-slot.selected{border-color:var(--gold)}
+.keystone-slot.selected img{filter:none}
+.keystone-slot.selected::after{content:'';position:absolute;inset:0;box-shadow:inset 0 0 12px rgba(200,170,110,0.4);pointer-events:none}
+.rune-row{display:flex;gap:6px;margin-bottom:6px;flex-wrap:wrap}
+.rune-slot{width:40px;height:40px;border:1px solid var(--line);cursor:pointer;position:relative;background:var(--bg-2);transition:all 0.18s;overflow:hidden}
+.rune-slot img{width:100%;height:100%;display:block;filter:grayscale(0.5) brightness(0.55)}
+.rune-slot:hover{border-color:var(--gold-deep)}
+.rune-slot:hover img{filter:grayscale(0.2) brightness(0.8)}
+.rune-slot.selected{border-color:var(--gold);background:var(--bg-3)}
+.rune-slot.selected img{filter:none}
+.slot-label{font-size:9px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.2em;margin:8px 0 4px}
+.spell-row{display:flex;gap:10px;margin-top:6px}
+.spell-slot{width:48px;height:48px;border:1px solid var(--line);cursor:pointer;background:var(--bg-2);position:relative;transition:all 0.18s;overflow:hidden}
+.spell-slot img{width:100%;height:100%;display:block}
+.spell-slot.empty{display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:20px;font-weight:300}
+.spell-slot:hover{border-color:var(--gold)}
+.spell-slot.selected{border-color:var(--gold)}
+.notes-area{width:100%;min-height:340px;background:rgba(7,10,19,0.6);border:1px solid var(--line);color:var(--text);padding:14px 16px;font-family:'Inter Tight',sans-serif;font-size:14px;line-height:1.65;outline:none;resize:vertical}
+.notes-area:focus{border-color:var(--gold-deep)}
+.notes-area::placeholder{color:var(--text-muted);font-style:italic}
+.build-name-input{background:rgba(7,10,19,0.6);border:1px solid var(--line);color:var(--gold-bright);padding:8px 12px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:0.12em;outline:none;text-transform:uppercase;margin-bottom:16px;width:100%}
+.build-name-input:focus{border-color:var(--gold)}
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;z-index:100;padding:20px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.modal-card{background:var(--bg-1);border:1px solid var(--gold-deep);max-width:520px;width:100%;max-height:80vh;display:flex;flex-direction:column;position:relative}
+.modal-card::before,.modal-card::after{content:'';position:absolute;width:14px;height:14px;border:1px solid var(--gold)}
+.modal-card::before{top:-1px;left:-1px;border-right:none;border-bottom:none}
+.modal-card::after{bottom:-1px;right:-1px;border-left:none;border-top:none}
+.modal-head{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+.modal-head h3{margin:0;font-family:'Cinzel',serif;font-size:13px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold-bright)}
+.modal-body{padding:16px;overflow-y:auto;flex:1}
+.picker-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(56px,1fr));gap:6px}
+.picker-item{position:relative;border:1px solid var(--line);cursor:pointer;background:var(--bg-2);transition:all 0.18s;overflow:hidden;width:100%}
+.picker-item::before{content:'';display:block;padding-top:100%}
+.picker-item img{position:absolute;top:0;left:0;width:100%;height:100%;display:block;object-fit:cover}
+.picker-item:hover{border-color:var(--gold);transform:scale(1.05)}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--bg-2);border:1px solid var(--gold);color:var(--gold-bright);padding:12px 22px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;z-index:200;opacity:0;pointer-events:none;transition:opacity 0.3s}
+.toast.show{opacity:1}
+.loader{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:14px}
+.loader-mark{width:48px;height:48px;border:1px solid var(--gold);animation:spin 2s linear infinite}
+.loader-text{font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.32em;color:var(--gold);text-transform:uppercase}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:780px){
+  main{padding:16px 12px 60px}
+  .split{grid-template-columns:1fr}
+  .pane{min-height:auto;padding:16px}
+  .brand-text h1{font-size:15px}
+  .brand-text p{font-size:10px}
+  .matchup-title h2{font-size:17px}
+  .matchup-header{padding:14px}
+  .matchup-portrait{width:54px;height:54px}
+  .champion-grid{grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:6px;max-height:55vh}
+  .keystone-slot{width:48px;height:48px}
+  .rune-slot{width:36px;height:36px}
+  .tab{padding:10px 14px;font-size:10px}
+  .notes-area{min-height:200px}
+  .patch-tag{display:none}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="brand-mark"><span>U</span></div>
+    <div class="brand-text">
+      <h1>Udyr Codex <span class="patch-tag" id="patchTag">···</span></h1>
+      <p>Matchup Tracker · Top Lane</p>
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn" id="exportBtn" title="JSON yedek indir">↓</button>
+      <button class="icon-btn" id="importBtn" title="JSON içe aktar">↑</button>
+      <input type="file" id="importFile" accept=".json" style="display:none">
+    </div>
+  </div>
+</header>
+<main id="app">
+  <div class="loader">
+    <div class="loader-mark"></div>
+    <div class="loader-text">Güncel patch yükleniyor</div>
+  </div>
+</main>
+<div class="toast" id="toast"></div>
+<script>
+const CDN='https://ddragon.leagueoflegends.com/cdn';
+let DD_VERSION=null;
+
+const state={data:{},champions:[],spells:[],runeTrees:[],currentChampion:null,currentBuildIdx:0,picker:null};
+const championMap={},spellMap={},runeMap={},treeMap={};
+
+const SHARDS={rows:[
+{label:'Saldırı',items:[
+{id:5008,name:'Adaptif Güç',icon:'perk-images/StatMods/StatModsAdaptiveForceIcon.png'},
+{id:5005,name:'Saldırı Hızı',icon:'perk-images/StatMods/StatModsAttackSpeedIcon.png'},
+{id:5007,name:'Beceri Hızlandırma',icon:'perk-images/StatMods/StatModsCDRScalingIcon.png'}]},
+{label:'Esnek',items:[
+{id:5008,name:'Adaptif Güç',icon:'perk-images/StatMods/StatModsAdaptiveForceIcon.png'},
+{id:5010,name:'Hareket Hızı',icon:'perk-images/StatMods/StatModsMovementSpeedIcon.png'},
+{id:5001,name:'Sağlık Ölçek',icon:'perk-images/StatMods/StatModsHealthScalingIcon.png'}]},
+{label:'Savunma',items:[
+{id:5011,name:'Sağlık',icon:'perk-images/StatMods/StatModsHealthPlusIcon.png'},
+{id:5013,name:'Bükülmezlik',icon:'perk-images/StatMods/StatModsTenacityIcon.png'},
+{id:5001,name:'Sağlık Ölçek',icon:'perk-images/StatMods/StatModsHealthScalingIcon.png'}]}
+]};
+
+const STORAGE_KEY='udyr-codex-v3';
+function loadData(){try{const raw=localStorage.getItem(STORAGE_KEY);if(raw)state.data=JSON.parse(raw)}catch(e){console.warn('load fail',e)}}
+function saveData(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state.data))}catch(e){toast('Kaydedilemedi: '+e.message)}}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2200)}
+function escapeHtml(s){if(s==null)return '';return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+
+async function fetchJSON(url){
+  const res=await fetch(url);
+  if(!res.ok)throw new Error('HTTP '+res.status);
+  return res.json();
+}
+async function fetchLocale(version,file){
+  try{return await fetchJSON(`${CDN}/${version}/data/tr_TR/${file}`)}
+  catch(e){return await fetchJSON(`${CDN}/${version}/data/en_US/${file}`)}
+}
+
+async function bootstrap(){
+  loadData();
+  try{
+    const versions=await fetchJSON('https://ddragon.leagueoflegends.com/api/versions.json');
+    DD_VERSION=versions[0];
+    document.getElementById('patchTag').textContent=DD_VERSION;
+    const [champJson,spellJson,runeJson]=await Promise.all([
+      fetchLocale(DD_VERSION,'champion.json'),
+      fetchLocale(DD_VERSION,'summoner.json'),
+      fetchLocale(DD_VERSION,'runesReforged.json')
+    ]);
+    state.champions=Object.values(champJson.data).map(c=>({id:c.id,name:c.name,key:c.key})).sort((a,b)=>a.name.localeCompare(b.name,'tr'));
+    state.champions.forEach(c=>championMap[c.id]=c);
+    state.spells=Object.values(spellJson.data).filter(s=>s.modes&&s.modes.includes('CLASSIC')).map(s=>({id:s.id,name:s.name,img:s.image.full})).sort((a,b)=>a.name.localeCompare(b.name,'tr'));
+    state.spells.forEach(s=>spellMap[s.id]=s);
+    state.runeTrees=runeJson.map(t=>({id:t.id,key:t.key,name:t.name,icon:t.icon,slots:t.slots.map(sl=>({runes:sl.runes.map(r=>({id:r.id,name:r.name,icon:r.icon}))}))}));
+    state.runeTrees.forEach(t=>{treeMap[t.id]=t;t.slots.forEach(sl=>sl.runes.forEach(r=>runeMap[r.id]={...r,treeId:t.id}))});
+    renderSelection();
+  }catch(e){
+    console.error(e);
+    document.getElementById('app').innerHTML=`<div class="loader"><div class="loader-text" style="color:var(--danger)">Bağlantı Hatası</div><div style="color:var(--text-dim);font-size:13px;text-align:center;max-width:400px;line-height:1.6">${escapeHtml(e.message)}<br><br>İnternet bağlantını kontrol et veya birkaç saniye sonra sayfayı yenile.</div><button class="back-btn" onclick="location.reload()">↻ Yeniden Dene</button></div>`;
+  }
+}
+
+let currentSearch='';
+
+function renderSelection(){
+  state.currentChampion=null;
+  document.getElementById('app').innerHTML=`
+    <div class="selector-wrap">
+      <span class="corner-bl"></span><span class="corner-br"></span>
+      <h2 class="section-label">Rakip Seç</h2>
+      <div class="search-row">
+        <input type="text" class="search-input" id="searchInput" placeholder="Şampiyon ara..." value="${escapeHtml(currentSearch)}" autocomplete="off">
+      </div>
+      <div class="champion-grid" id="champGrid"></div>
+    </div>`;
+  renderChampionGrid();
+  document.getElementById('searchInput').addEventListener('input',e=>{currentSearch=e.target.value;renderChampionGrid()});
+}
+function renderChampionGrid(){
+  const grid=document.getElementById('champGrid');
+  if(!grid)return;
+  const q=currentSearch.toLocaleLowerCase('tr');
+  const filtered=state.champions.filter(c=>!q||c.name.toLocaleLowerCase('tr').includes(q)||c.id.toLowerCase().includes(q.replace(/\s/g,'')));
+  grid.innerHTML=filtered.map(c=>`
+    <div class="champion-card ${state.data[c.id]?'has-data':''}" data-id="${c.id}">
+      ${state.data[c.id]?'<span class="dot"></span>':''}
+      <img loading="lazy" src="${CDN}/${DD_VERSION}/img/champion/${c.id}.png" alt="${escapeHtml(c.name)}" onerror="this.style.opacity=0.15">
+      <div class="cname">${escapeHtml(c.name)}</div>
+    </div>`).join('');
+  grid.querySelectorAll('.champion-card').forEach(card=>card.addEventListener('click',()=>openMatchup(card.dataset.id)));
+}
+
+function ensureChampData(id){
+  if(!state.data[id])state.data[id]={builds:[]};
+  if(state.data[id].builds.length===0)state.data[id].builds.push(makeEmptyBuild('Build 1'));
+  return state.data[id];
+}
+function makeEmptyBuild(name){
+  return{id:'b_'+Date.now()+'_'+Math.random().toString(36).slice(2,6),name,
+    primary:{treeId:null,keystone:null,slot1:null,slot2:null,slot3:null},
+    sub:{treeId:null,slot1:null,slot2:null},shards:[null,null,null],spells:[null,null],notes:''};
+}
+function openMatchup(champId){state.currentChampion=champId;state.currentBuildIdx=0;ensureChampData(champId);renderMatchup()}
+
+function renderMatchup(){
+  const champId=state.currentChampion;
+  const champ=championMap[champId];
+  const champData=state.data[champId];
+  const build=champData.builds[state.currentBuildIdx];
+  document.getElementById('app').innerHTML=`
+    <div class="matchup-view">
+      <span class="corner-bl"></span><span class="corner-br"></span>
+      <div class="matchup-header">
+        <div class="matchup-portrait">
+          <img src="${CDN}/${DD_VERSION}/img/champion/${champ.id}.png" alt="${escapeHtml(champ.name)}">
+        </div>
+        <div class="matchup-title">
+          <h2>${escapeHtml(champ.name)}</h2>
+          <p>Matchup Build</p>
+        </div>
+        <button class="back-btn" id="backBtn">← Geri</button>
+      </div>
+      <div class="tabs-bar" id="tabsBar">
+        ${champData.builds.map((b,i)=>`
+          <button class="tab ${i===state.currentBuildIdx?'active':''}" data-idx="${i}">
+            <span>${escapeHtml(b.name)}</span>
+            ${champData.builds.length>1?`<span class="x" data-del="${i}">×</span>`:''}
+          </button>`).join('')}
+        <button class="tab-add" id="addTabBtn" title="Yeni build">+</button>
+      </div>
+      <div class="split">
+        <div class="pane">
+          <input class="build-name-input" id="buildName" value="${escapeHtml(build.name)}" placeholder="Build adı">
+          <h3 class="subhead">Rünler</h3>
+          ${renderRuneTree('primary',build.primary)}
+          <div style="height:8px"></div>
+          ${renderRuneTree('sub',build.sub)}
+          <h3 class="subhead" style="margin-top:18px">Stat Shardları</h3>
+          ${renderShards(build.shards)}
+          <h3 class="subhead" style="margin-top:18px">Sihirdar Büyüleri</h3>
+          <div class="spell-row">
+            ${renderSpellSlot(build.spells[0],0)}
+            ${renderSpellSlot(build.spells[1],1)}
+          </div>
+        </div>
+        <div class="pane">
+          <h3 class="subhead">Notlar — vs ${escapeHtml(champ.name)}</h3>
+          <textarea class="notes-area" id="notesArea" placeholder="Lane fazı, all-in pencereleri, ward spotları, item öncelikleri...">${escapeHtml(build.notes)}</textarea>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('backBtn').addEventListener('click',renderSelection);
+  document.getElementById('tabsBar').addEventListener('click',e=>{
+    const delBtn=e.target.closest('.x');
+    if(delBtn){e.stopPropagation();const idx=+delBtn.dataset.del;
+      if(confirm(`"${champData.builds[idx].name}" silinsin mi?`)){
+        champData.builds.splice(idx,1);
+        if(state.currentBuildIdx>=champData.builds.length)state.currentBuildIdx=champData.builds.length-1;
+        saveData();renderMatchup();}return;}
+    const tab=e.target.closest('.tab');
+    if(tab){state.currentBuildIdx=+tab.dataset.idx;renderMatchup();}
+  });
+  document.getElementById('addTabBtn').addEventListener('click',()=>{
+    champData.builds.push(makeEmptyBuild('Build '+(champData.builds.length+1)));
+    state.currentBuildIdx=champData.builds.length-1;saveData();renderMatchup();
+  });
+  document.getElementById('buildName').addEventListener('input',e=>{build.name=e.target.value||'Adsız Build';saveData();});
+  let notesT;
+  document.getElementById('notesArea').addEventListener('input',e=>{
+    build.notes=e.target.value;clearTimeout(notesT);notesT=setTimeout(saveData,350);
+  });
+  attachRuneHandlers(build);
+  attachShardHandlers(build);
+  attachSpellHandlers(build);
+}
+
+function renderRuneTree(type,treeState){
+  const tree=treeState.treeId?treeMap[treeState.treeId]:null;
+  const isPrimary=type==='primary';
+  return `
+    <div class="rune-tree" data-tree-type="${type}">
+      <div class="tree-header">
+        <div class="tree-icon" data-action="pick-tree" data-type="${type}">
+          ${tree?`<img src="${CDN}/img/${tree.icon}" alt="${escapeHtml(tree.name)}">`:'<div class="placeholder"></div>'}
+        </div>
+        <div class="tree-name">${tree?escapeHtml(tree.name):(isPrimary?'Ana Yol — seçmek için tıkla':'Yan Yol — seçmek için tıkla')}</div>
+      </div>
+      ${tree?renderTreeSlots(type,tree,treeState):''}
+    </div>`;
+}
+function renderTreeSlots(type,tree,treeState){
+  if(type==='primary'){
+    return `<div class="keystone-row">${renderRuneSlots(tree.slots[0].runes,treeState.keystone,type,'keystone',true)}</div>
+      ${[1,2,3].map(i=>`<div class="rune-row">${renderRuneSlots(tree.slots[i].runes,treeState['slot'+i],type,'slot'+i,false)}</div>`).join('')}`;
+  } else {
+    const selectedIds=[treeState.slot1,treeState.slot2].filter(x=>x!=null);
+    return [1,2,3].map(i=>{
+      const rowRunes=tree.slots[i].runes;
+      const selInRow=rowRunes.find(r=>selectedIds.includes(r.id));
+      return `<div class="rune-row">${renderRuneSlots(rowRunes,selInRow?selInRow.id:null,type,'slot'+i,false)}</div>`;
+    }).join('');
+  }
+}
+function renderRuneSlots(runes,selectedId,type,slotKey,big){
+  const cls=big?'keystone-slot':'rune-slot';
+  return runes.map(r=>`
+    <div class="${cls} ${selectedId===r.id?'selected':''}" data-rune-id="${r.id}" data-type="${type}" data-slot="${slotKey}" title="${escapeHtml(r.name)}">
+      <img src="${CDN}/img/${r.icon}" alt="${escapeHtml(r.name)}" onerror="this.style.opacity=0.2">
+    </div>`).join('');
+}
+function attachRuneHandlers(build){
+  document.querySelectorAll('[data-action="pick-tree"]').forEach(el=>el.addEventListener('click',()=>openTreePicker(el.dataset.type,build)));
+  document.querySelectorAll('.keystone-slot, .rune-slot[data-rune-id]').forEach(el=>{
+    el.addEventListener('click',()=>{
+      const type=el.dataset.type;const slot=el.dataset.slot;const runeId=+el.dataset.runeId;
+      const target=build[type];
+      if(type==='primary'){
+        target[slot]=target[slot]===runeId?null:runeId;
+      } else {
+        const tree=treeMap[target.treeId];
+        const slotRowIdx=tree.slots.findIndex(sl=>sl.runes.some(r=>r.id===runeId));
+        const rowRuneIds=tree.slots[slotRowIdx].runes.map(r=>r.id);
+        const cur1=target.slot1,cur2=target.slot2;
+        if(cur1===runeId){target.slot1=null;}
+        else if(cur2===runeId){target.slot2=null;}
+        else{
+          if(cur1&&rowRuneIds.includes(cur1))target.slot1=runeId;
+          else if(cur2&&rowRuneIds.includes(cur2))target.slot2=runeId;
+          else if(!cur1)target.slot1=runeId;
+          else if(!cur2)target.slot2=runeId;
+          else target.slot1=runeId;
+        }
+      }
+      saveData();renderMatchup();
+    });
+  });
+}
+function openTreePicker(type,build){
+  state.picker={
+    title:type==='primary'?'Ana Yol Seç':'Yan Yol Seç',
+    items:state.runeTrees.map(t=>({id:t.id,img:`${CDN}/img/${t.icon}`,name:t.name})),
+    onPick:(treeId)=>{
+      const other=type==='primary'?build.sub:build.primary;
+      if(other.treeId===treeId){toast('Aynı ağaç iki tarafta olamaz');return;}
+      build[type].treeId=treeId;
+      if(type==='primary'){build.primary.keystone=null;build.primary.slot1=null;build.primary.slot2=null;build.primary.slot3=null;}
+      else{build.sub.slot1=null;build.sub.slot2=null;}
+      closePicker();saveData();renderMatchup();
+    }
+  };
+  renderPicker();
+}
+function renderShards(shards){
+  return SHARDS.rows.map((row,i)=>`
+    <div>
+      <div class="slot-label">${row.label}</div>
+      <div class="rune-row" data-shard-row="${i}">
+        ${row.items.map((s,j)=>`
+          <div class="rune-slot ${shards[i]===j?'selected':''}" data-shard-row="${i}" data-shard-col="${j}" title="${escapeHtml(s.name)}">
+            <img src="${CDN}/img/${s.icon}" alt="${escapeHtml(s.name)}" onerror="this.style.opacity=0.2">
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+function attachShardHandlers(build){
+  document.querySelectorAll('[data-shard-col]').forEach(el=>{
+    el.addEventListener('click',()=>{
+      const row=+el.dataset.shardRow;const col=+el.dataset.shardCol;
+      build.shards[row]=build.shards[row]===col?null:col;
+      saveData();renderMatchup();
+    });
+  });
+}
+function renderSpellSlot(spellId,idx){
+  if(!spellId)return `<div class="spell-slot empty" data-spell-idx="${idx}">+</div>`;
+  const sp=spellMap[spellId];
+  if(!sp)return `<div class="spell-slot empty" data-spell-idx="${idx}">+</div>`;
+  return `<div class="spell-slot selected" data-spell-idx="${idx}" title="${escapeHtml(sp.name)}">
+    <img src="${CDN}/${DD_VERSION}/img/spell/${sp.img}" alt="${escapeHtml(sp.name)}" onerror="this.style.opacity=0.2">
+  </div>`;
+}
+function attachSpellHandlers(build){
+  document.querySelectorAll('[data-spell-idx]').forEach(el=>el.addEventListener('click',()=>openSpellPicker(+el.dataset.spellIdx,build)));
+}
+function openSpellPicker(idx,build){
+  state.picker={
+    title:'Sihirdar Büyüsü Seç',
+    items:state.spells.map(s=>({id:s.id,img:`${CDN}/${DD_VERSION}/img/spell/${s.img}`,name:s.name})),
+    onPick:(spellId)=>{
+      const otherIdx=idx===0?1:0;
+      if(build.spells[otherIdx]===spellId)build.spells[otherIdx]=null;
+      build.spells[idx]=build.spells[idx]===spellId?null:spellId;
+      closePicker();saveData();renderMatchup();
+    }
+  };
+  renderPicker();
+}
+function renderPicker(){
+  if(!state.picker)return;
+  const existing=document.getElementById('pickerModal');
+  if(existing)existing.remove();
+  const p=state.picker;
+  const div=document.createElement('div');
+  div.id='pickerModal';div.className='modal-backdrop';
+  div.innerHTML=`
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3>${escapeHtml(p.title)}</h3>
+        <button class="icon-btn" id="closePicker">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="picker-grid">
+          ${p.items.map(it=>`
+            <div class="picker-item" data-pick="${it.id}" title="${escapeHtml(it.name)}">
+              <img src="${it.img}" alt="${escapeHtml(it.name)}" onerror="this.style.opacity=0.2">
+            </div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(div);
+  div.querySelector('#closePicker').addEventListener('click',closePicker);
+  div.addEventListener('click',e=>{if(e.target===div)closePicker();});
+  div.querySelectorAll('[data-pick]').forEach(el=>{
+    el.addEventListener('click',()=>{
+      const v=el.dataset.pick;const id=isNaN(+v)?v:+v;
+      p.onPick(id);
+    });
+  });
+}
+function closePicker(){state.picker=null;const m=document.getElementById('pickerModal');if(m)m.remove();}
+
+document.getElementById('exportBtn').addEventListener('click',()=>{
+  const blob=new Blob([JSON.stringify(state.data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=`udyr-codex-${new Date().toISOString().slice(0,10)}.json`;
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  URL.revokeObjectURL(url);toast('Dışa aktarıldı');
+});
+document.getElementById('importBtn').addEventListener('click',()=>document.getElementById('importFile').click());
+document.getElementById('importFile').addEventListener('change',e=>{
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    try{
+      const parsed=JSON.parse(ev.target.result);
+      if(confirm('Mevcut veriler değişecek. Devam?')){
+        state.data=parsed;saveData();toast('İçe aktarıldı');
+        if(state.currentChampion)renderMatchup();else renderSelection();
+      }
+    }catch(err){toast('Geçersiz JSON');}
+  };
+  r.readAsText(f);e.target.value='';
+});
+
+bootstrap();
+</script>
+</body>
+</html>
