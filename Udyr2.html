@@ -138,7 +138,7 @@ details.extra .extra-body{padding:4px 10px 12px;display:grid;grid-template-colum
 .mini input{width:100%;background:rgba(7,10,19,0.6);border:1px solid var(--line);color:var(--gold-bright);padding:6px 8px;font-family:'Inter Tight',sans-serif;font-size:14px;outline:none;font-variant-numeric:tabular-nums}
 .mini input:focus{border-color:var(--gold)}
 .seg{display:flex;border:1px solid var(--line);flex-wrap:nowrap}
-.seg button{flex:1;min-width:0;background:transparent;border:none;border-right:1px solid var(--line);color:var(--text-dim);padding:7px 0;font-family:'Inter Tight',sans-serif;font-size:12px;cursor:pointer;transition:all 0.15s}
+.seg button{flex:1;min-width:0;background:transparent;border:none;border-right:1px solid var(--line);color:var(--text-dim);padding:7px 2px;line-height:1.2;font-family:'Inter Tight',sans-serif;font-size:12px;cursor:pointer;transition:all 0.15s}
 .seg button:last-child{border-right:none}
 .seg button.on{background:rgba(200,170,110,0.16);color:var(--gold-bright);box-shadow:inset 0 -2px 0 var(--gold)}
 .seg button:disabled{color:var(--text-muted);opacity:0.35;cursor:not-allowed}
@@ -213,6 +213,44 @@ details.extra .extra-body{padding:4px 10px 12px;display:grid;grid-template-colum
 .loader-mark{width:48px;height:48px;border:1px solid var(--gold);animation:spin 2s linear infinite}
 .loader-text{font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.32em;color:var(--gold);text-transform:uppercase}
 @keyframes spin{to{transform:rotate(360deg)}}
+/* === SHOP === */
+.modal-card.shop-card{max-width:880px;height:84vh}
+.shop{flex:1;min-height:0;display:grid;grid-template-columns:170px minmax(0,1fr)}
+.shop-side{border-right:1px solid var(--line);overflow-y:auto;padding:8px 0;background:rgba(7,10,19,0.35)}
+.shop-side button{display:block;width:100%;text-align:left;background:transparent;border:none;border-left:2px solid transparent;color:var(--text-dim);padding:10px 14px;font-family:'Inter Tight',sans-serif;font-size:13px;cursor:pointer;white-space:nowrap}
+.shop-side button:hover{color:var(--gold-bright)}
+.shop-side button.on{color:var(--gold-bright);border-left-color:var(--gold);background:rgba(200,170,110,0.1)}
+.shop-main{overflow-y:auto;padding:12px 16px 18px;min-width:0}
+.shop-search{padding:9px 12px;font-size:14px;margin-bottom:14px}
+.shop-sec{margin-bottom:16px}
+.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(66px,1fr));gap:10px 8px}
+.shop-item{cursor:pointer;text-align:center;min-width:0}
+.shop-item .ic{position:relative;border:1px solid var(--line);background:var(--bg-2);transition:border-color 0.15s}
+.shop-item .ic::before{content:'';display:block;padding-top:100%}
+.shop-item .ic img{position:absolute;inset:0;width:100%;height:100%;display:block}
+.shop-item:hover .ic{border-color:var(--gold)}
+.shop-item.cur .ic{border-color:var(--hex-blue);box-shadow:0 0 8px rgba(11,198,227,0.4)}
+.shop-item .nm{font-size:9px;color:var(--text-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:4px;line-height:1.2}
+.shop-item .g{font-size:11px;color:var(--gold);font-variant-numeric:tabular-nums}
+
+/* === SYNC === */
+#syncBtn{position:relative}
+.sync-dot{position:absolute;top:4px;right:4px;width:7px;height:7px;border-radius:50%;background:var(--text-muted)}
+.sync-dot.ok{background:var(--ok);box-shadow:0 0 6px var(--ok)}
+.sync-dot.busy{background:var(--gold);animation:pulse 1s ease-in-out infinite}
+.sync-dot.err{background:var(--danger);box-shadow:0 0 6px var(--danger)}
+@keyframes pulse{50%{opacity:0.3}}
+.sync-body p{font-size:13px;line-height:1.6;color:var(--text-dim);margin:0 0 10px}
+.sync-body ol{font-size:13px;line-height:1.7;color:var(--text-dim);padding-left:18px;margin:0 0 12px}
+.sync-body a{color:var(--hex-blue)}
+.sync-body b,.sync-body code{color:var(--gold-bright)}
+.sync-status{font-size:12px;color:var(--text-dim);border:1px solid var(--line);padding:8px 10px;margin-bottom:12px}
+.sync-row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.btn{background:rgba(200,170,110,0.12);border:1px solid var(--gold-deep);color:var(--gold-bright);padding:10px 14px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer}
+.btn:hover{border-color:var(--gold)}
+.btn.ghost{background:transparent;border-color:var(--line);color:var(--text-dim)}
+.btn:disabled{opacity:0.5;cursor:wait}
+
 @media(max-width:900px){
   .split{grid-template-columns:1fr}
   .pane-switch{display:flex;border-bottom:1px solid var(--line);position:sticky;top:71px;z-index:20;background:var(--bg-0)}
@@ -238,6 +276,17 @@ details.extra .extra-body{padding:4px 10px 12px;display:grid;grid-template-colum
   .stat-card dl{font-size:11px;gap:2px 6px}
   .dmg-val .big{font-size:18px}
 }
+@media(max-width:640px){
+  .modal-backdrop{padding:10px}
+  .modal-card.shop-card{height:90vh}
+  .shop{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}
+  .shop-side{display:flex;overflow-x:auto;border-right:none;border-bottom:1px solid var(--line);padding:0;scrollbar-width:none}
+  .shop-side::-webkit-scrollbar{display:none}
+  .shop-side button{width:auto;flex-shrink:0;border-left:none;border-bottom:2px solid transparent;padding:11px 12px;font-size:12px}
+  .shop-side button.on{border-bottom-color:var(--gold)}
+  .shop-main{padding:10px 12px 16px}
+  .shop-grid{grid-template-columns:repeat(auto-fill,minmax(58px,1fr))}
+}
 @media(max-width:420px){
   .ctl-grid,.rank-wrap{grid-template-columns:1fr}
   .vs-grid{grid-template-columns:1fr}
@@ -253,6 +302,7 @@ details.extra .extra-body{padding:4px 10px 12px;display:grid;grid-template-colum
       <p>Matchup Tracker · Top Lane</p>
     </div>
     <div class="header-actions">
+      <button class="icon-btn" id="syncBtn" title="Senkronizasyon">☁<span class="sync-dot" id="syncDot"></span></button>
       <button class="icon-btn" id="exportBtn" title="JSON yedek indir">↓</button>
       <button class="icon-btn" id="importBtn" title="JSON içe aktar">↑</button>
       <input type="file" id="importFile" accept=".json" style="display:none">
@@ -272,7 +322,7 @@ const WIKI_API='https://wiki.leagueoflegends.com/en-us/api.php?action=query&prop
 let DD_VERSION=null;
 
 const state={data:{},champions:[],spells:[],runeTrees:[],items:[],currentChampion:null,currentBuildIdx:0,picker:null,
-  wikiStats:{},ddStats:{},statSource:'yükleniyor',mobileView:'build'};
+  wikiStats:{},ddStats:{},statSource:'yükleniyor',mobileView:'build',shopCat:'all'};
 const championMap={},spellMap={},runeMap={},treeMap={},itemMap={};
 
 const SHARDS={rows:[
@@ -310,9 +360,17 @@ const pctf=v=>'%'+nf1.format(v*100);
 
 const STORAGE_KEY='udyr-codex-v3';
 const WIKI_CACHE_KEY='udyr-codex-wikistats-v1';
-function loadData(){try{const raw=localStorage.getItem(STORAGE_KEY);if(raw)state.data=JSON.parse(raw)}catch(e){console.warn('load fail',e)}}
-function saveData(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state.data))}catch(e){toast('Kaydedilemedi: '+e.message)}}
-let saveT;function saveSoon(){clearTimeout(saveT);saveT=setTimeout(saveData,300)}
+function eachBuild(d,fn){Object.keys(d||{}).forEach(k=>{if(k!=='__deleted'&&d[k]&&Array.isArray(d[k].builds))d[k].builds.forEach(b=>b&&fn(b,k))})}
+function loadData(){
+  try{const raw=localStorage.getItem(STORAGE_KEY);if(raw)state.data=JSON.parse(raw)}catch(e){console.warn('load fail',e)}
+  if(!state.data||typeof state.data!=='object')state.data={};
+  if(!state.data.__deleted)state.data.__deleted={};
+  eachBuild(state.data,b=>{if(b.u==null)b.u=1});   // eski kayıtlar: senkronda korunur
+}
+function persist(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state.data))}catch(e){toast('Kaydedilemedi: '+e.message)}}
+function stamp(){const b=currentBuild();if(b)b.u=Date.now()}
+function saveData(){stamp();persist();schedulePush()}
+let saveT;function saveSoon(){stamp();clearTimeout(saveT);saveT=setTimeout(()=>{persist();schedulePush()},300)}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2200)}
 function escapeHtml(s){if(s==null)return '';return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 
@@ -485,11 +543,11 @@ function buildItems(enJson,trJson){
     if(!['ad','ap','hp','arm','mr','leth','apen','mpen','mpenPct','as'].some(k=>stats[k]))continue;
     if(seen.has(it.name))continue;seen.add(it.name);
     const tr=trJson&&trJson.data[id];
-    const completed=!(it.into&&it.into.length);
-    const group=tags.includes('Boots')?1:completed?0:2;
-    out.push({id,name:(tr&&tr.name)||it.name,enName:it.name,gold:it.gold.total,img:it.image.full,stats,group});
+    const hasFrom=!!(it.from&&it.from.length),hasInto=!!(it.into&&it.into.length);
+    const tier=tags.includes('Boots')?'boots':(!hasFrom&&!hasInto)?(it.gold.total<=1000?'starter':'legendary'):!hasFrom?'basic':hasInto?'epic':'legendary';
+    out.push({id,name:(tr&&tr.name)||it.name,enName:it.name,gold:it.gold.total,img:it.image.full,stats,tier});
   }
-  out.sort((a,b)=>a.group-b.group||b.gold-a.gold||a.name.localeCompare(b.name,'tr'));
+  out.sort((a,b)=>a.gold-b.gold||a.name.localeCompare(b.name,'tr'));
   return out;
 }
 function sumItems(ids){
@@ -514,6 +572,7 @@ function itemStatText(s){
 /* ================= BOOTSTRAP ================= */
 async function bootstrap(){
   loadData();
+  loadSyncCfg();setSync(sync.token?'busy':'off');
   try{
     const versions=await fetchJSON('https://ddragon.leagueoflegends.com/api/versions.json');
     DD_VERSION=versions[0];
@@ -537,6 +596,7 @@ async function bootstrap(){
     state.runeTrees.forEach(t=>{treeMap[t.id]=t;t.slots.forEach(sl=>sl.runes.forEach(r=>runeMap[r.id]={...r,treeId:t.id}))});
     if(itemEn){state.items=buildItems(itemEn,itemTr);state.items.forEach(it=>itemMap[it.id]=it);}
     renderSelection();
+    if(sync.token){setSync('busy');syncNow();}
     loadWikiStats().then(()=>{if(state.currentChampion)renderSim();});
   }catch(e){
     console.error(e);
@@ -584,13 +644,15 @@ function ensureChampData(id){
 function makeEmptyBuild(name){
   return ensureBuild({id:'b_'+Date.now()+'_'+Math.random().toString(36).slice(2,6),name,
     primary:{treeId:null,keystone:null,slot1:null,slot2:null,slot3:null},
-    sub:{treeId:null,slot1:null,slot2:null},shards:[null,null,null],spells:[null,null],notes:''});
+    sub:{treeId:null,slot1:null,slot2:null},shards:[null,null,null],spells:[null,null],notes:'',u:0});
 }
 function ensureBuild(b){
-  if(!Array.isArray(b.items))b.items=[null,null,null,null,null,null];
-  const def={myLv:9,enLv:9,qr:-1,rr:1,enItems:[null,null,null,null,null,null],my:{ad:0,ap:0,hp:0},en:{hp:0,arm:0,mr:0},
-    conq:12,adapt:'auto',selfHp:100,enHp:100,strikes:6,counts:{}};
+  if(b.u==null)b.u=0;
+  const def={myLv:9,enLv:9,qr:-1,rr:1,items:null,enItems:[null,null,null,null,null,null],my:{ad:0,ap:0,hp:0},en:{hp:0,arm:0,mr:0},
+    conqOn:true,conq:12,adapt:'auto',shards:0,third:'none',ign:false,selfHp:100,enHp:100,strikes:6,counts:{}};
   b.sim=Object.assign({},def,b.sim||{});
+  if(!Array.isArray(b.sim.items))b.sim.items=Array.isArray(b.items)?b.items.slice(0,6):[null,null,null,null,null,null];
+  delete b.items;
   b.sim.my=Object.assign({},def.my,b.sim.my||{});
   b.sim.en=Object.assign({},def.en,b.sim.en||{});
   if(!Array.isArray(b.sim.enItems))b.sim.enItems=def.enItems.slice();
@@ -646,16 +708,6 @@ function renderMatchup(){
             ${renderSpellSlot(build.spells[0],0)}
             ${renderSpellSlot(build.spells[1],1)}
           </div>
-          <h3 class="subhead" style="margin-top:22px">Udyr İtemleri</h3>
-          ${renderItemRow(build.items,'my')}
-          <details class="extra" ${(build.sim.my.ad||build.sim.my.ap||build.sim.my.hp)?'open':''}>
-            <summary>Ek stat · pasif, stack</summary>
-            <div class="extra-body">
-              ${miniInput('my.ad','Ek AD',build.sim.my.ad)}
-              ${miniInput('my.ap','Ek AP',build.sim.my.ap)}
-              ${miniInput('my.hp','Ek can',build.sim.my.hp)}
-            </div>
-          </details>
           <h3 class="subhead" style="margin-top:22px">Notlar — vs ${escapeHtml(champ.name)}</h3>
           <textarea class="notes-area" id="notesArea" placeholder="Lane fazı, all-in pencereleri, ward spotları, item öncelikleri...">${escapeHtml(build.notes)}</textarea>
         </div>
@@ -674,6 +726,7 @@ function renderMatchup(){
     const delBtn=e.target.closest('.x');
     if(delBtn){e.stopPropagation();const idx=+delBtn.dataset.del;
       if(confirm(`"${champData.builds[idx].name}" silinsin mi?`)){
+        state.data.__deleted[champData.builds[idx].id]=Date.now();
         champData.builds.splice(idx,1);
         if(state.currentBuildIdx>=champData.builds.length)state.currentBuildIdx=champData.builds.length-1;
         saveData();renderMatchup();}return;}
@@ -689,8 +742,6 @@ function renderMatchup(){
   attachRuneHandlers(build);
   attachShardHandlers(build);
   attachSpellHandlers(build);
-  attachItemHandlers(document.getElementById('buildPane'),build);
-  attachMiniInputs(document.getElementById('buildPane'),build,()=>updateSimResults());
   renderSim();
 }
 
@@ -828,22 +879,74 @@ function renderItemRow(arr,side){
 }
 function attachItemHandlers(root,build){
   root.querySelectorAll('[data-item-idx]').forEach(el=>el.addEventListener('click',()=>{
-    const arr=el.dataset.itemSide==='my'?build.items:build.sim.enItems;
+    const arr=el.dataset.itemSide==='my'?build.sim.items:build.sim.enItems;
     openItemPicker(arr,+el.dataset.itemIdx,el.dataset.itemSide==='my'?'Udyr itemi':championMap[state.currentChampion].name+' itemi');
   }));
 }
+const SHOP_CATS=[
+  ['all','Tümü',()=>true],
+  ['ad','Saldırı Gücü',s=>s.ad],
+  ['as','Saldırı Hızı',s=>s.as],
+  ['pen','Delme',s=>s.leth||s.apen||s.mpen||s.mpenPct],
+  ['ap','Yetenek Gücü',s=>s.ap],
+  ['hp','Can',s=>s.hp],
+  ['arm','Zırh',s=>s.arm],
+  ['mr','Büyü Direnci',s=>s.mr],
+  ['boots','Botlar',(s,it)=>it.tier==='boots']];
+const TIERS=[['starter','Başlangıç'],['basic','Temel'],['epic','Destansı'],['boots','Botlar'],['legendary','Efsanevi']];
 function openItemPicker(arr,idx,title){
   if(!state.items.length){toast('Item listesi yüklenemedi');return;}
-  const groups=['Tamamlanmış','Botlar','Ara itemler'];
-  state.picker={
-    title,search:true,wide:true,gridClass:'items',
-    onClear:arr[idx]?()=>{arr[idx]=null;closePicker();saveData();renderMatchup();}:null,
-    items:state.items.map(it=>({id:it.id,img:`${CDN}/${DD_VERSION}/img/item/${it.img}`,name:it.name,
-      label:it.name,search:(it.name+' '+it.enName).toLocaleLowerCase('tr'),group:groups[it.group],
-      title:`${it.name} · ${it.gold}g · ${itemStatText(it.stats)}`})),
-    onPick:(itemId)=>{arr[idx]=String(itemId);closePicker();saveData();renderMatchup();}
+  closePicker();
+  state.picker={shop:true};
+  const cur=arr[idx];
+  const div=document.createElement('div');
+  div.id='pickerModal';div.className='modal-backdrop';
+  div.innerHTML=`
+    <div class="modal-card shop-card">
+      <div class="modal-head">
+        <h3>${escapeHtml(title)}</h3>
+        ${cur?'<button class="back-btn" id="clearPick">Kaldır</button>':''}
+        <button class="icon-btn" id="closePicker">×</button>
+      </div>
+      <div class="shop">
+        <nav class="shop-side">${SHOP_CATS.map(([k,t])=>`<button data-cat="${k}" class="${state.shopCat===k?'on':''}">${t}</button>`).join('')}</nav>
+        <div class="shop-main">
+          <input class="search-input shop-search" id="pickSearch" placeholder="Item ara..." autocomplete="off">
+          <div id="shopList"></div>
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(div);
+  const main=div.querySelector('.shop-main');
+  const draw=()=>{
+    const q=div.querySelector('#pickSearch').value.trim().toLocaleLowerCase('tr');
+    const cat=SHOP_CATS.find(c=>c[0]===state.shopCat)||SHOP_CATS[0];
+    const list=state.items.filter(it=>cat[2](it.stats,it)&&(!q||(it.name+' '+it.enName).toLocaleLowerCase('tr').includes(q)));
+    div.querySelector('#shopList').innerHTML=TIERS.map(([t,label])=>{
+      const xs=list.filter(it=>it.tier===t);if(!xs.length)return '';
+      return `<div class="shop-sec"><div class="picker-group">${label}</div><div class="shop-grid">${xs.map(it=>`
+        <div class="shop-item ${it.id===cur?'cur':''}" data-pick="${it.id}" title="${escapeHtml(it.name)} · ${it.gold}g · ${escapeHtml(itemStatText(it.stats))}">
+          <div class="ic"><img src="${CDN}/${DD_VERSION}/img/item/${it.img}" alt="" loading="lazy" onerror="this.style.opacity=0.2"></div>
+          <div class="nm">${escapeHtml(it.name)}</div><div class="g">${it.gold}</div>
+        </div>`).join('')}</div></div>`;
+    }).join('')||'<div class="hint">Eşleşen item yok.</div>';
   };
-  renderPicker();
+  draw();
+  div.querySelector('.shop-side').addEventListener('click',e=>{
+    const b=e.target.closest('[data-cat]');if(!b)return;
+    state.shopCat=b.dataset.cat;div.querySelectorAll('[data-cat]').forEach(x=>x.classList.toggle('on',x===b));
+    draw();main.scrollTop=0;
+  });
+  const search=div.querySelector('#pickSearch');
+  search.addEventListener('input',draw);
+  if(window.matchMedia('(hover:hover)').matches)search.focus();
+  div.querySelector('#shopList').addEventListener('click',e=>{
+    const el=e.target.closest('[data-pick]');if(!el)return;
+    arr[idx]=el.dataset.pick;closePicker();saveData();renderMatchup();
+  });
+  div.querySelector('#closePicker').addEventListener('click',closePicker);
+  if(cur)div.querySelector('#clearPick').addEventListener('click',()=>{arr[idx]=null;closePicker();saveData();renderMatchup();});
+  div.addEventListener('click',e=>{if(e.target===div)closePicker();});
 }
 
 /* ---- küçük sayı girişleri (ek statlar) ---- */
@@ -869,18 +972,10 @@ function compute(build,champId){
   const S=build.sim,L=clamp(S.myLv,1,18),EL=clamp(S.enLv,1,18);
   const us=champStats('Udyr'),es=champStats(champId);
   if(!es)return null;
-  const it=sumItems(build.items),eit=sumItems(S.enItems);
-
-  // shardlar
-  let adaptN=0,shardHP=0;
-  (build.shards||[]).forEach((col,row)=>{
-    if(col==null)return;const sh=SHARDS.rows[row].items[col];
-    if(sh.id===5008)adaptN++;
-    if(sh.id===5001)shardHP+=LERP(10,180,L);
-    if(sh.id===5011)shardHP+=65;
-  });
+  const it=sumItems(S.items),eit=sumItems(S.enItems);
+  const adaptN=clamp(S.shards|0,0,2);
   const isAP=S.adapt==='ap'||(S.adapt==='auto'&&(it.ap+S.my.ap)>(it.ad+S.my.ad));
-  const conqOn=hasRune(build,RUNE.CONQ);
+  const conqOn=!!S.conqOn;
   const stacks=conqOn?clamp(S.conq,0,12):0;
   const conqPer=isAP?LERP(1.8,4.26,L):LERP(1.08,2.56,L);
   const conqAD=isAP?0:stacks*conqPer,conqAP=isAP?stacks*conqPer:0;
@@ -889,7 +984,7 @@ function compute(build,champId){
   const baseAD=GROW(us.dam_base,us.dam_lvl,L);
   const bAD=it.ad+S.my.ad+shardAD+conqAD,AD=baseAD+bAD;
   const AP=it.ap+S.my.ap+shardAP+conqAP;
-  const bHP=it.hp+S.my.hp+shardHP,HP=GROW(us.hp_base,us.hp_lvl,L)+bHP;
+  const bHP=it.hp+S.my.hp,HP=GROW(us.hp_base,us.hp_lvl,L)+bHP;
 
   // rakip
   const eHP=GROW(es.hp_base,es.hp_lvl,EL)+eit.hp+S.en.hp;
@@ -902,9 +997,9 @@ function compute(build,champId){
 
   // rün çarpanı (3. satır)
   let amp=0;const ampNotes=[];
-  if(hasRune(build,RUNE.LAST_STAND)){const h=S.selfHp;const a=h>=60?0:h<=30?.11:.05+(60-h)/30*.06;amp+=a;ampNotes.push(`Last Stand +${pctf(a)}`);}
-  if(hasRune(build,RUNE.COUP)){const a=S.enHp<40?.08:0;amp+=a;ampNotes.push(`Coup de Grace +${pctf(a)}`);}
-  if(hasRune(build,RUNE.CUT_DOWN)){const a=S.enHp>60?.08:0;amp+=a;ampNotes.push(`Cut Down +${pctf(a)}`);}
+  if(S.third==='ls'){const h=S.selfHp;const a=h>=60?0:h<=30?.11:.05+(60-h)/30*.06;amp+=a;ampNotes.push(`Last Stand +${pctf(a)}`);}
+  if(S.third==='cdg'){const a=S.enHp<40?.08:0;amp+=a;ampNotes.push(`Coup de Grace +${pctf(a)}`);}
+  if(S.third==='cut'){const a=S.enHp>60?.08:0;amp+=a;ampNotes.push(`Cut Down +${pctf(a)}`);}
 
   // ranklar
   const cap=rankCap(L);
@@ -920,7 +1015,7 @@ function compute(build,champId){
   const rTick=R_TICK[ri]+0.175*AP;
   const raPct=SCALE(.01,.0184,L)+0.004375*AP/100;
   const strikes=clamp(S.strikes,0,6);
-  const ignOn=(build.spells||[]).includes('SummonerDot');
+  const ignOn=!!S.ign;
   const ignTotal=L<=5?70+20*(L-1):150+25*(L-5);
 
   const P=v=>({t:'p',raw:v}),M=v=>({t:'m',raw:v}),T=v=>({t:'t',raw:v});
@@ -960,22 +1055,15 @@ function rankSeg(key,label,val,cap,auto){
   return `<div><div class="slot-label" style="margin-top:0">${label}</div><div class="seg">${btns.join('')}</div></div>`;
 }
 
+function seg(key,label,opts,val,full){
+  return `<div ${full?'style="grid-column:1/-1"':''}><div class="slot-label" style="margin-top:0">${label}</div><div class="seg">${opts.map(([v,t])=>`<button data-seg="${key}" data-v="${v}" class="${String(val)===String(v)?'on':''}">${t}</button>`).join('')}</div></div>`;
+}
 function renderSim(){
   const pane=document.getElementById('simPane');if(!pane)return;
   const build=currentBuild();const S=build.sim;
   const champ=championMap[state.currentChampion];
-  const conqOn=hasRune(build,RUNE.CONQ),ls=hasRune(build,RUNE.LAST_STAND),cdg=hasRune(build,RUNE.COUP),cut=hasRune(build,RUNE.CUT_DOWN);
-  const runeIcon=id=>runeMap[id]?`<img src="${CDN}/img/${runeMap[id].icon}" alt="">`:'';
-  const runeBox=(conqOn||ls||cdg||cut)?`
-    <div class="sim-block rune-box">
-      <div class="rb-head">${conqOn?runeIcon(RUNE.CONQ):''}${ls?runeIcon(RUNE.LAST_STAND):''}${cdg?runeIcon(RUNE.COUP):''}${cut?runeIcon(RUNE.CUT_DOWN):''}<span>Build'deki rünler</span></div>
-      <div class="ctl-grid">
-        ${conqOn?ctl('conq','Yenilmez stack',0,12,S.conq):''}
-        ${conqOn?`<div><div class="slot-label" style="margin-top:0">Adaptif</div><div class="seg">${['auto','ad','ap'].map(v=>`<button data-adapt="${v}" class="${S.adapt===v?'on':''}">${v==='auto'?'Oto':v.toUpperCase()}</button>`).join('')}</div></div>`:''}
-        ${ls?ctl('selfHp','Kendi canın',1,100,S.selfHp,v=>'%'+v):''}
-        ${(cdg||cut)?ctl('enHp','Rakibin canı',1,100,S.enHp,v=>'%'+v):''}
-      </div>
-    </div>`:'';
+  const scrollY=window.scrollY;
+  const conqIcon=runeMap[RUNE.CONQ]?`<img src="${CDN}/img/${runeMap[RUNE.CONQ].icon}" alt="">`:'';
   pane.innerHTML=`
     <h3 class="subhead">Hasar Simülasyonu</h3>
     <div class="sim-block ctl-grid">
@@ -983,6 +1071,18 @@ function renderSim(){
       ${ctl('enLv',escapeHtml(champ.name)+' seviyesi',1,18,S.enLv)}
     </div>
     <div class="sim-block rank-wrap" id="rankWrap"></div>
+    <div class="sim-block">
+      <h3 class="subhead" style="margin-bottom:8px">Udyr İtemleri</h3>
+      ${renderItemRow(S.items,'my')}
+      <details class="extra" ${(S.my.ad||S.my.ap||S.my.hp)?'open':''}>
+        <summary>Ek stat · pasif, stack</summary>
+        <div class="extra-body">
+          ${miniInput('my.ad','Ek AD',S.my.ad)}
+          ${miniInput('my.ap','Ek AP',S.my.ap)}
+          ${miniInput('my.hp','Ek can',S.my.hp)}
+        </div>
+      </details>
+    </div>
     <div class="sim-block">
       <h3 class="subhead" style="margin-bottom:8px">${escapeHtml(champ.name)} İtemleri</h3>
       ${renderItemRow(S.enItems,'en')}
@@ -995,11 +1095,24 @@ function renderSim(){
         </div>
       </details>
     </div>
-    ${runeBox}
+    <div class="sim-block rune-box">
+      <div class="rb-head">${conqIcon}<span>Rün ve büyüler</span></div>
+      <div class="ctl-grid">
+        ${seg('conqOn','Yenilmez',[['false','Kapalı'],['true','Açık']],S.conqOn)}
+        ${S.conqOn?ctl('conq','Yenilmez stack',0,12,S.conq):'<div></div>'}
+        ${S.conqOn?seg('adapt','Yenilmez adaptif',[['auto','Oto'],['ad','AD'],['ap','AP']],S.adapt):''}
+        ${seg('shards','Adaptif shard',[[0,'0'],[1,'1'],[2,'2']],S.shards)}
+        ${seg('third','3. satır rünü',[['none','Yok'],['ls','Last Stand'],['cdg','Coup de Grace'],['cut','Cut Down']],S.third,true)}
+        ${S.third==='ls'?ctl('selfHp','Kendi canın',1,100,S.selfHp,v=>'%'+v):''}
+        ${(S.third==='cdg'||S.third==='cut')?ctl('enHp','Rakibin canı',1,100,S.enHp,v=>'%'+v):''}
+        ${seg('ign','Tutuşturma',[['false','Yok'],['true','Var']],S.ign)}
+      </div>
+    </div>
     <div class="sim-block ctl-grid">
       ${ctl('strikes','Q✦ başına rakibe düşen yıldırım',0,6,S.strikes)}
     </div>
     <div id="simOut"></div>`;
+  window.scrollTo(0,scrollY);
   renderRanks();
   attachItemHandlers(pane,build);
   attachMiniInputs(pane,build,()=>updateSimResults());
@@ -1009,8 +1122,10 @@ function renderSim(){
     if(k==='myLv')renderRanks();
     saveSoon();updateSimResults();
   }));
-  pane.querySelectorAll('[data-adapt]').forEach(b=>b.addEventListener('click',()=>{
-    S.adapt=b.dataset.adapt;pane.querySelectorAll('[data-adapt]').forEach(x=>x.classList.toggle('on',x===b));saveSoon();updateSimResults();
+  pane.querySelectorAll('[data-seg]').forEach(b=>b.addEventListener('click',()=>{
+    const k=b.dataset.seg,v=b.dataset.v;
+    S[k]=v==='true'?true:v==='false'?false:isNaN(+v)?v:+v;
+    saveSoon();renderSim();
   }));
   updateSimResults();
 }
@@ -1063,7 +1178,7 @@ function updateSimResults(){
       <div class="stat-card">
         <h4>${escapeHtml(champ.name)} · Sv ${R.EL} ${srcTag(R.es.src)}${pending}</h4>
         <dl>
-          <dt>Can</dt><dd>${nf0.format(R.eHP)}${S.enHp<100&&(hasRune(build,RUNE.COUP)||hasRune(build,RUNE.CUT_DOWN))?` <small>(şu an ${nf0.format(R.curHP)})</small>`:''}</dd>
+          <dt>Can</dt><dd>${nf0.format(R.eHP)}${S.enHp<100&&(S.third==='cdg'||S.third==='cut')?` <small>(şu an ${nf0.format(R.curHP)})</small>`:''}</dd>
           <dt>Zırh</dt><dd>${nf0.format(R.eArm)} <small>→ ${nf0.format(R.effA)} · ×${nf2.format(R.fA)}</small></dd>
           <dt>MR</dt><dd>${nf0.format(R.eMR)} <small>→ ${nf0.format(R.effM)} · ×${nf2.format(R.fM)}</small></dd>
           ${R.ampNotes.length?`<dt>Rün</dt><dd><small>${R.ampNotes.join(' · ')}</small></dd>`:''}
@@ -1092,7 +1207,7 @@ function updateSimResults(){
         <div class="hint">Fırtına satırlarında sayı tik sayısıdır (4 sn = 8 tik). Rün çarpanları rakibin can yüzdesine göre sabit alınır.</div>`
       :`<div class="hint" style="margin:0">Satırlardaki <b style="color:var(--gold-bright)">+</b> ile vuruş ekle, toplam hasarı rakibin canıyla karşılaştırsın.</div>`}
     </div>
-    <div class="hint" style="margin-top:12px">Stat kaynağı: ${R.es.src==='wiki'?'LoL Wiki (Module:ChampionData)':R.es.src==='ddragon'?"Data Dragon — wiki'ye ulaşılamadı":'sabit'}${R.es.patch?' · rakibin son stat değişikliği '+escapeHtml(R.es.patch):''}. Udyr yetenek oranları wiki V26.09. İtem pasifleri hesaba katılmaz, gerekiyorsa "Ek stat"a ekle.</div>`;
+    <div class="hint" style="margin-top:12px">Stat kaynağı: ${R.es.src==='wiki'?'LoL Wiki (Module:ChampionData)':R.es.src==='ddragon'?"Data Dragon — wiki'ye ulaşılamadı":'sabit'}${R.es.patch?' · rakibin son stat değişikliği '+escapeHtml(R.es.patch):''}. Udyr yetenek oranları wiki V26.09. Simülasyon soldaki build'den bağımsızdır. İtem pasifleri hesaba katılmaz, gerekiyorsa "Ek stat"a ekle.</div>`;
   out.querySelectorAll('[data-cnt]').forEach(b=>b.addEventListener('click',()=>{
     const k=b.dataset.cnt;counts[k]=clamp((counts[k]||0)+(+b.dataset.d),0,99);if(!counts[k])delete counts[k];saveSoon();updateSimResults();
   }));
@@ -1149,6 +1264,172 @@ function renderPicker(){
 }
 function closePicker(){state.picker=null;const m=document.getElementById('pickerModal');if(m)m.remove();}
 
+/* ================= SENKRONİZASYON (GitHub Gist) ================= */
+const SYNC_CFG='udyr-codex-sync-v1',GIST_FILE='udyr-codex.json',TOMB_TTL=90*864e5;
+const sync={token:null,gistId:null,status:'off',busy:false,dirty:false,err:'',last:0,lastTry:0,pushT:null,pendingView:null};
+function loadSyncCfg(){try{const c=JSON.parse(localStorage.getItem(SYNC_CFG)||'null');if(c){sync.token=c.token||null;sync.gistId=c.gistId||null;}}catch(e){}}
+function saveSyncCfg(){try{if(sync.token)localStorage.setItem(SYNC_CFG,JSON.stringify({token:sync.token,gistId:sync.gistId}));else localStorage.removeItem(SYNC_CFG)}catch(e){}}
+function syncStatusText(){
+  if(!sync.token)return 'Bağlı değil — veriler sadece bu cihazda.';
+  if(sync.status==='busy')return 'Senkronize ediliyor…';
+  if(sync.status==='err')return `<span style="color:var(--danger)">Hata: ${escapeHtml(sync.err)}</span>`;
+  return 'Bağlı · son senkron '+(sync.last?new Date(sync.last).toLocaleTimeString('tr-TR'):'—');
+}
+function setSync(st,err){
+  sync.status=st;sync.err=err||'';
+  const d=document.getElementById('syncDot');if(d)d.className='sync-dot '+(sync.token?st:'');
+  const m=document.getElementById('syncStatus');if(m)m.innerHTML=syncStatusText();
+}
+function schedulePush(){if(!sync.token)return;clearTimeout(sync.pushT);sync.pushT=setTimeout(syncNow,1500)}
+async function gh(path,opts={}){
+  const headers={'Authorization':'Bearer '+sync.token,'Accept':'application/vnd.github+json'};
+  if(opts.body)headers['Content-Type']='application/json';
+  const r=await fetch('https://api.github.com'+path,Object.assign({},opts,{headers,cache:'no-store'}));
+  if(!r.ok){const e=new Error(r.status===401?'Token geçersiz veya süresi dolmuş':r.status===403?'Erişim reddedildi (token gist iznine sahip mi?)':'GitHub '+r.status);e.status=r.status;throw e;}
+  return r.status===204?null:r.json();
+}
+function serializeObj(d){
+  const o={};
+  Object.keys(d||{}).filter(k=>k!=='__deleted').sort().forEach(k=>{
+    const b=((d[k]&&d[k].builds)||[]).filter(x=>x&&x.id&&x.u);
+    if(b.length)o[k]={builds:b};
+  });
+  const del=d&&d.__deleted;
+  if(del&&Object.keys(del).length){o.__deleted={};Object.keys(del).sort().forEach(k=>o.__deleted[k]=del[k]);}
+  return JSON.stringify(o);
+}
+async function findOrCreateGist(){
+  for(let page=1;page<=10;page++){
+    const list=await gh(`/gists?per_page=100&page=${page}`);
+    const g=list.find(g=>g.files&&g.files[GIST_FILE]);
+    if(g)return g.id;
+    if(list.length<100)break;
+  }
+  const g=await gh('/gists',{method:'POST',body:JSON.stringify({description:'Udyr Codex senkron verisi',public:false,files:{[GIST_FILE]:{content:serializeObj(state.data)}}})});
+  return g.id;
+}
+async function pullRemote(){
+  const g=await gh('/gists/'+sync.gistId);
+  const f=g.files&&g.files[GIST_FILE];if(!f)return {};
+  let txt=f.content;
+  if(f.truncated)txt=await (await fetch(f.raw_url,{cache:'no-store'})).text();
+  try{const o=JSON.parse(txt);return o&&typeof o==='object'?o:{}}catch(e){return {}}
+}
+// Build bazında birleştirme: aynı id'de daha yeni (u) olan kazanır; silme izi daha yeniyse build düşer.
+function mergeInto(remote){
+  const now=Date.now();
+  const del=state.data.__deleted||(state.data.__deleted={});
+  Object.entries(remote.__deleted||{}).forEach(([k,v])=>{if(!(del[k]>=v))del[k]=v});
+  Object.keys(del).forEach(k=>{if(now-del[k]>TOMB_TTL)delete del[k]});
+  const keys=new Set([...Object.keys(state.data),...Object.keys(remote)]);keys.delete('__deleted');
+  keys.forEach(k=>{
+    const loc=state.data[k];
+    const la=(loc&&loc.builds)||[],lb=(remote[k]&&remote[k].builds)||[];
+    const map=new Map(),order=[];
+    la.concat(lb).forEach(x=>{
+      if(!x||!x.id)return;
+      const c=map.get(x.id);
+      if(!c){map.set(x.id,x);order.push(x.id);}
+      else if((x.u||0)>(c.u||0))map.set(x.id,x);
+    });
+    const builds=order.map(id=>map.get(id)).filter(x=>!(del[x.id]&&del[x.id]>=(x.u||0)));
+    builds.forEach(ensureBuild);
+    if(loc)loc.builds=builds;else if(builds.length)state.data[k]={builds};
+  });
+}
+function uiBusy(){
+  const ae=document.activeElement;
+  return !!(document.getElementById('pickerModal')||(ae&&(ae.tagName==='TEXTAREA'||(ae.tagName==='INPUT'&&ae.type!=='range'))));
+}
+function refreshView(curId){
+  if(uiBusy()){sync.pendingView={id:curId};return;}
+  sync.pendingView=null;
+  if(state.currentChampion){
+    const d=ensureChampData(state.currentChampion);
+    const i=d.builds.findIndex(b=>b.id===curId);
+    state.currentBuildIdx=i>=0?i:Math.min(state.currentBuildIdx,d.builds.length-1);
+    renderMatchup();
+  }else if(document.getElementById('champGrid'))renderChampionGrid();
+}
+async function syncNow(){
+  if(!sync.token)return;
+  if(sync.busy){sync.dirty=true;return;}
+  clearTimeout(sync.pushT);
+  sync.busy=true;sync.dirty=false;sync.lastTry=Date.now();setSync('busy');
+  try{
+    if(!sync.gistId){sync.gistId=await findOrCreateGist();saveSyncCfg();}
+    const remote=await pullRemote();
+    const curId=(currentBuild()||{}).id;
+    const before=JSON.stringify(state.data);
+    mergeInto(remote);
+    if(JSON.stringify(state.data)!==before){persist();refreshView(curId);}
+    const mine=serializeObj(state.data);
+    if(mine!==serializeObj(remote))await gh('/gists/'+sync.gistId,{method:'PATCH',body:JSON.stringify({files:{[GIST_FILE]:{content:mine}}})});
+    sync.last=Date.now();setSync('ok');
+  }catch(e){
+    console.warn('sync',e);
+    if(e.status===404){sync.gistId=null;saveSyncCfg();}
+    setSync('err',e.message||'Bağlantı hatası');
+  }finally{
+    sync.busy=false;
+    if(sync.dirty)setTimeout(syncNow,300);
+  }
+}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&sync.token)syncNow()});
+setInterval(()=>{
+  if(document.visibilityState!=='visible'||!sync.token)return;
+  if(sync.pendingView&&!uiBusy())refreshView(sync.pendingView.id);
+  if(!sync.busy&&Date.now()-sync.lastTry>30000)syncNow();
+},5000);
+
+function closeSyncModal(){const m=document.getElementById('syncModal');if(m)m.remove()}
+function openSyncModal(){
+  closeSyncModal();
+  const div=document.createElement('div');div.id='syncModal';div.className='modal-backdrop';
+  const on=!!sync.token;
+  div.innerHTML=`
+    <div class="modal-card">
+      <div class="modal-head"><h3>Senkronizasyon</h3><button class="icon-btn" id="syncClose">×</button></div>
+      <div class="modal-body sync-body">
+        <div class="sync-status" id="syncStatus">${syncStatusText()}</div>
+        ${on?`
+          <p>Build'ler ve notlar GitHub hesabındaki gizli bir gist'te tutuluyor. Değişiklikler birkaç saniye içinde gönderilir. Diğer cihaz 30 saniyede bir ve sayfaya her döndüğünde günceller.</p>
+          <div class="sync-row"><button class="btn" id="syncNowBtn">Şimdi senkronize et</button><button class="btn ghost" id="syncOff">Bağlantıyı kes</button></div>`
+        :`
+          <p>PC ve telefonda aynı veriyi görmek için build'ler GitHub hesabındaki gizli bir gist'e kaydedilir. Bir token oluşturup iki cihaza da girmen yeterli.</p>
+          <ol>
+            <li><a href="https://github.com/settings/tokens/new?scopes=gist&description=Udyr%20Codex" target="_blank" rel="noopener">Bu bağlantıyla</a> GitHub'da yeni token sayfasını aç. Sadece <b>gist</b> izni seçili gelir.</li>
+            <li><b>Expiration</b>'ı istediğin süreye ayarla, en alttaki <b>Generate token</b>'a bas.</li>
+            <li>Çıkan <code>ghp_…</code> kodunu kopyalayıp aşağıya yapıştır. Diğer cihazda da aynı kodu gir.</li>
+          </ol>
+          <input class="search-input" id="syncToken" type="password" placeholder="ghp_…" autocomplete="off" spellcheck="false">
+          <div class="sync-row"><button class="btn" id="syncConnect">Bağlan</button></div>
+          <p style="margin-top:12px;font-size:11px">Token sadece bu tarayıcıda saklanır ve yalnızca gist'lere erişebilir. İki cihazdaki veriler ilk bağlantıda birleştirilir, hiçbiri silinmez.</p>`}
+      </div>
+    </div>`;
+  document.body.appendChild(div);
+  div.querySelector('#syncClose').addEventListener('click',closeSyncModal);
+  div.addEventListener('click',e=>{if(e.target===div)closeSyncModal()});
+  if(on){
+    div.querySelector('#syncNowBtn').addEventListener('click',()=>syncNow());
+    div.querySelector('#syncOff').addEventListener('click',()=>{
+      if(!confirm('Senkronizasyon kapatılsın mı? Veriler bu cihazda kalır.'))return;
+      sync.token=null;sync.gistId=null;saveSyncCfg();setSync('off');openSyncModal();
+    });
+  }else{
+    const btn=div.querySelector('#syncConnect');
+    btn.addEventListener('click',async()=>{
+      const t=div.querySelector('#syncToken').value.trim();
+      if(!t){toast('Token boş');return;}
+      btn.disabled=true;const prev=sync.token;sync.token=t;
+      try{await gh('/user');}
+      catch(e){sync.token=prev;btn.disabled=false;const m=div.querySelector('#syncStatus');m.innerHTML=`<span style="color:var(--danger)">${escapeHtml(e.message||'Bağlanılamadı')}</span>`;return;}
+      sync.gistId=null;saveSyncCfg();openSyncModal();await syncNow();toast(sync.status==='ok'?'Senkronize edildi':'Senkron hatası');
+    });
+  }
+}
+document.getElementById('syncBtn').addEventListener('click',openSyncModal);
+
 /* ================= JSON YEDEK ================= */
 document.getElementById('exportBtn').addEventListener('click',()=>{
   const blob=new Blob([JSON.stringify(state.data,null,2)],{type:'application/json'});
@@ -1166,7 +1447,11 @@ document.getElementById('importFile').addEventListener('change',e=>{
     try{
       const parsed=JSON.parse(ev.target.result);
       if(confirm('Mevcut veriler değişecek. Devam?')){
-        state.data=parsed;saveData();toast('İçe aktarıldı');
+        const now=Date.now();
+        state.data=parsed&&typeof parsed==='object'?parsed:{};
+        if(!state.data.__deleted)state.data.__deleted={};
+        eachBuild(state.data,b=>{b.u=now});
+        persist();schedulePush();toast('İçe aktarıldı');
         if(state.currentChampion){ensureChampData(state.currentChampion);renderMatchup();}else renderSelection();
       }
     }catch(err){toast('Geçersiz JSON');}
