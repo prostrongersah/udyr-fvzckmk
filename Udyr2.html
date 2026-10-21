@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://ddragon.leagueoflegends.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg-0:#070a13;--bg-1:#0d1320;--bg-2:#141c2e;--bg-3:#1c2742;--line:rgba(200,170,110,0.18);--line-strong:rgba(200,170,110,0.42);--gold:#c8aa6e;--gold-bright:#f0e6d2;--gold-deep:#785a28;--hex-blue:#0bc6e3;--danger:#c8443c;--text:#cdbe91;--text-dim:#a09b8c;--text-muted:#5b5a56}
+:root{--bg-0:#070a13;--bg-1:#0d1320;--bg-2:#141c2e;--bg-3:#1c2742;--line:rgba(200,170,110,0.18);--line-strong:rgba(200,170,110,0.42);--gold:#c8aa6e;--gold-bright:#f0e6d2;--gold-deep:#785a28;--hex-blue:#0bc6e3;--danger:#c8443c;--text:#cdbe91;--text-dim:#a09b8c;--text-muted:#5b5a56;--phys:#e08a3c;--magic:#0bc6e3;--true:#f0e6d2;--ok:#3fbf7f}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0;background:var(--bg-0);color:var(--text);font-family:'Inter Tight',sans-serif;font-weight:400;overflow-x:hidden}
 body{background:radial-gradient(ellipse at top,rgba(11,198,227,0.06),transparent 50%),radial-gradient(ellipse at bottom,rgba(200,170,110,0.04),transparent 50%),linear-gradient(180deg,var(--bg-0) 0%,var(--bg-1) 100%);min-height:100vh;background-attachment:fixed}
@@ -25,9 +25,9 @@ header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg,rgba(7
 .brand-text p{margin:0;font-size:11px;color:var(--text-muted);letter-spacing:0.2em;text-transform:uppercase}
 .patch-tag{margin-left:8px;font-size:9px;color:var(--text-muted);font-family:'Inter Tight',sans-serif;letter-spacing:0.08em;border:1px solid var(--line);padding:1px 6px}
 .header-actions{margin-left:auto;display:flex;gap:8px}
-.icon-btn{background:transparent;border:1px solid var(--line);color:var(--text-dim);width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s ease;font-size:14px}
+.icon-btn{background:transparent;border:1px solid var(--line);color:var(--text-dim);width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s ease;font-size:14px;flex-shrink:0}
 .icon-btn:hover{border-color:var(--gold);color:var(--gold-bright);background:rgba(200,170,110,0.08)}
-main{max-width:1400px;margin:0 auto;padding:24px 20px 80px}
+main{max-width:1400px;margin:0 auto;padding:24px 20px 80px;position:relative;z-index:1}
 .selector-wrap,.matchup-view{border:1px solid var(--line);background:linear-gradient(180deg,rgba(20,28,46,0.4),rgba(13,19,32,0.6));padding:24px;position:relative}
 .matchup-view{padding:0}
 .selector-wrap::before,.selector-wrap::after,.matchup-view::before,.matchup-view::after{content:'';position:absolute;width:14px;height:14px;border:1px solid var(--gold)}
@@ -60,7 +60,6 @@ main{max-width:1400px;margin:0 auto;padding:24px 20px 80px}
 .matchup-header{display:flex;align-items:center;gap:16px;padding:18px 22px;border-bottom:1px solid var(--line);background:linear-gradient(90deg,rgba(120,90,40,0.12),transparent)}
 .matchup-portrait{width:64px;height:64px;flex-shrink:0;border:1px solid var(--gold);position:relative;overflow:hidden}
 .matchup-portrait img{width:100%;height:100%;object-fit:cover;display:block}
-.matchup-portrait::before{content:'VS';position:absolute;top:-18px;left:50%;transform:translateX(-50%);background:var(--bg-1);color:var(--gold);padding:1px 8px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.2em;border:1px solid var(--gold);z-index:2}
 .matchup-title{flex:1;min-width:0}
 .matchup-title h2{margin:0;font-family:'Cinzel',serif;font-weight:600;color:var(--gold-bright);font-size:22px;letter-spacing:0.08em;text-transform:uppercase;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .matchup-title p{margin:2px 0 0;font-size:11px;color:var(--text-muted);letter-spacing:0.18em;text-transform:uppercase}
@@ -76,8 +75,9 @@ main{max-width:1400px;margin:0 auto;padding:24px 20px 80px}
 .tab .x:hover{opacity:1;color:var(--danger)}
 .tab-add{background:transparent;border:none;color:var(--gold);cursor:pointer;padding:12px 16px;font-size:18px;font-weight:300;line-height:1;transition:all 0.2s}
 .tab-add:hover{background:rgba(200,170,110,0.08);color:var(--gold-bright)}
-.split{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}
-.pane{background:var(--bg-1);padding:20px;min-height:400px}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:1px;background:var(--line)}
+.pane{background:var(--bg-1);padding:20px;min-height:400px;min-width:0}
+.pane-switch{display:none}
 .subhead{font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.32em;color:var(--gold);text-transform:uppercase;margin:0 0 12px}
 .rune-tree{margin-bottom:20px}
 .tree-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
@@ -107,33 +107,121 @@ main{max-width:1400px;margin:0 auto;padding:24px 20px 80px}
 .spell-slot.empty{display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:20px;font-weight:300}
 .spell-slot:hover{border-color:var(--gold)}
 .spell-slot.selected{border-color:var(--gold)}
-.notes-area{width:100%;min-height:340px;background:rgba(7,10,19,0.6);border:1px solid var(--line);color:var(--text);padding:14px 16px;font-family:'Inter Tight',sans-serif;font-size:14px;line-height:1.65;outline:none;resize:vertical}
+.notes-area{width:100%;min-height:180px;background:rgba(7,10,19,0.6);border:1px solid var(--line);color:var(--text);padding:14px 16px;font-family:'Inter Tight',sans-serif;font-size:14px;line-height:1.65;outline:none;resize:vertical}
 .notes-area:focus{border-color:var(--gold-deep)}
 .notes-area::placeholder{color:var(--text-muted);font-style:italic}
 .build-name-input{background:rgba(7,10,19,0.6);border:1px solid var(--line);color:var(--gold-bright);padding:8px 12px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:0.12em;outline:none;text-transform:uppercase;margin-bottom:16px;width:100%}
 .build-name-input:focus{border-color:var(--gold)}
+
+/* === ITEMS === */
+.item-row{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;max-width:340px}
+.item-slot{position:relative;border:1px solid var(--line);background:var(--bg-2);cursor:pointer;overflow:hidden;transition:border-color 0.18s}
+.item-slot::before{content:'';display:block;padding-top:100%}
+.item-slot img{position:absolute;top:0;left:0;width:100%;height:100%;display:block;object-fit:cover}
+.item-slot .plus{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:18px;font-weight:300}
+.item-slot:hover{border-color:var(--gold)}
+.item-slot.filled{border-color:var(--gold-deep)}
+.item-names{font-size:11px;color:var(--text-dim);margin-top:6px;line-height:1.5;min-height:16px}
+details.extra{margin-top:10px;border:1px solid var(--line);background:rgba(7,10,19,0.35)}
+details.extra summary{cursor:pointer;padding:8px 10px;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-dim);list-style:none}
+details.extra summary::-webkit-details-marker{display:none}
+details.extra summary::before{content:'+ ';color:var(--gold)}
+details.extra[open] summary::before{content:'− '}
+details.extra .extra-body{padding:4px 10px 12px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+
+/* === SIM CONTROLS === */
+.sim-block{margin-bottom:18px}
+.ctl-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px 16px}
+.ctl label,.mini label{display:flex;justify-content:space-between;align-items:baseline;font-size:9px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.18em;margin-bottom:4px}
+.ctl label b{font-family:'Inter Tight',sans-serif;font-size:15px;font-weight:500;color:var(--gold-bright);letter-spacing:0}
+.ctl input[type=range]{width:100%;accent-color:var(--gold);margin:2px 0 0}
+.mini input{width:100%;background:rgba(7,10,19,0.6);border:1px solid var(--line);color:var(--gold-bright);padding:6px 8px;font-family:'Inter Tight',sans-serif;font-size:14px;outline:none;font-variant-numeric:tabular-nums}
+.mini input:focus{border-color:var(--gold)}
+.seg{display:flex;border:1px solid var(--line);flex-wrap:nowrap}
+.seg button{flex:1;min-width:0;background:transparent;border:none;border-right:1px solid var(--line);color:var(--text-dim);padding:7px 0;font-family:'Inter Tight',sans-serif;font-size:12px;cursor:pointer;transition:all 0.15s}
+.seg button:last-child{border-right:none}
+.seg button.on{background:rgba(200,170,110,0.16);color:var(--gold-bright);box-shadow:inset 0 -2px 0 var(--gold)}
+.seg button:disabled{color:var(--text-muted);opacity:0.35;cursor:not-allowed}
+.rank-wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px 16px}
+.hint{font-size:11px;color:var(--text-muted);margin-top:6px;line-height:1.5}
+.hint.warn{color:#d9a35b}
+.rune-box{border:1px solid var(--line);background:linear-gradient(90deg,rgba(120,90,40,0.1),transparent);padding:12px}
+.rune-box .rb-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:12px;color:var(--gold-bright)}
+.rune-box .rb-head img{width:22px;height:22px}
+.src-tag{display:inline-block;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;border:1px solid var(--line);padding:2px 6px;color:var(--text-dim);margin-left:6px;vertical-align:middle}
+.src-tag.wiki{border-color:rgba(11,198,227,0.45);color:var(--hex-blue)}
+
+/* === STATS === */
+.vs-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.stat-card{border:1px solid var(--line);background:rgba(7,10,19,0.45);padding:10px 12px}
+.stat-card h4{margin:0 0 8px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.22em;color:var(--gold);text-transform:uppercase;font-weight:600;display:flex;align-items:center;gap:6px}
+.stat-card dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:3px 10px;font-size:12px}
+.stat-card dt{color:var(--text-muted)}
+.stat-card dd{margin:0;text-align:right;color:var(--gold-bright);font-variant-numeric:tabular-nums}
+.stat-card dd small{color:var(--text-dim);font-size:10px}
+
+/* === DAMAGE ROWS === */
+.legend{display:flex;gap:14px;font-size:10px;color:var(--text-dim);letter-spacing:0.12em;text-transform:uppercase;margin:0 0 6px;flex-wrap:wrap}
+.legend span::before{content:'';display:inline-block;width:8px;height:8px;margin-right:5px;vertical-align:middle}
+.legend .p::before{background:var(--phys)}.legend .m::before{background:var(--magic)}.legend .t::before{background:var(--true)}
+.dmg-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:4px 14px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}
+.dmg-row.off{opacity:0.4}
+.dmg-name{color:var(--gold-bright);font-size:13px;font-weight:500;letter-spacing:0.02em}
+.dmg-sub{font-size:11px;color:var(--text-dim);margin-top:3px;line-height:1.5;font-variant-numeric:tabular-nums}
+.dmg-val{text-align:right;font-variant-numeric:tabular-nums}
+.dmg-val .big{font-size:21px;color:var(--gold-bright);line-height:1.1}
+.dmg-val .pct{font-size:10px;color:var(--text-muted);letter-spacing:0.06em}
+.dmg-bar{grid-column:1/-1;height:4px;background:rgba(255,255,255,0.05);display:flex;overflow:hidden}
+.dmg-bar i{display:block;height:100%}
+.stepper{display:flex;align-items:center;border:1px solid var(--line)}
+.stepper button{background:transparent;border:none;color:var(--text-dim);width:26px;height:28px;cursor:pointer;font-size:15px;line-height:1}
+.stepper button:hover{color:var(--gold-bright)}
+.stepper span{min-width:22px;text-align:center;font-size:12px;color:var(--gold-bright);font-variant-numeric:tabular-nums}
+.sum-card{margin-top:14px;border:1px solid var(--line-strong);padding:12px 14px;background:rgba(7,10,19,0.5)}
+.sum-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.sum-top .v{font-size:22px;color:var(--gold-bright);font-variant-numeric:tabular-nums}
+.sum-top .verdict{font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.2em;text-transform:uppercase}
+.verdict.kill{color:var(--ok)}.verdict.nokill{color:var(--danger)}
+.hpbar{position:relative;height:12px;margin-top:8px;background:rgba(200,68,60,0.18);border:1px solid var(--line);overflow:hidden;display:flex}
+.hpbar i{display:block;height:100%}
+.sum-reset{background:transparent;border:1px solid var(--line);color:var(--text-dim);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;padding:4px 8px;cursor:pointer}
+.sum-reset:hover{color:var(--gold-bright);border-color:var(--gold)}
+
 .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;z-index:100;padding:20px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
 .modal-card{background:var(--bg-1);border:1px solid var(--gold-deep);max-width:520px;width:100%;max-height:80vh;display:flex;flex-direction:column;position:relative}
+.modal-card.wide{max-width:680px}
 .modal-card::before,.modal-card::after{content:'';position:absolute;width:14px;height:14px;border:1px solid var(--gold)}
 .modal-card::before{top:-1px;left:-1px;border-right:none;border-bottom:none}
 .modal-card::after{bottom:-1px;right:-1px;border-left:none;border-top:none}
-.modal-head{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
-.modal-head h3{margin:0;font-family:'Cinzel',serif;font-size:13px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold-bright)}
+.modal-head{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:8px}
+.modal-head h3{margin:0;font-family:'Cinzel',serif;font-size:13px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold-bright);margin-right:auto}
+.modal-search{padding:12px 16px 0}
+.modal-search input{padding:9px 12px;font-size:14px}
 .modal-body{padding:16px;overflow-y:auto;flex:1}
 .picker-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(56px,1fr));gap:6px}
+.picker-grid.items{grid-template-columns:repeat(auto-fill,minmax(70px,1fr))}
 .picker-item{position:relative;border:1px solid var(--line);cursor:pointer;background:var(--bg-2);transition:all 0.18s;overflow:hidden;width:100%}
 .picker-item::before{content:'';display:block;padding-top:100%}
 .picker-item img{position:absolute;top:0;left:0;width:100%;height:100%;display:block;object-fit:cover}
+.picker-item .lbl{position:absolute;left:0;right:0;bottom:0;font-size:8px;line-height:1.2;color:var(--gold-bright);background:linear-gradient(180deg,transparent,rgba(0,0,0,0.92));padding:12px 3px 3px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .picker-item:hover{border-color:var(--gold);transform:scale(1.05)}
+.picker-group{font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--text-muted);margin:14px 0 6px}
+.picker-group:first-child{margin-top:0}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--bg-2);border:1px solid var(--gold);color:var(--gold-bright);padding:12px 22px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;z-index:200;opacity:0;pointer-events:none;transition:opacity 0.3s}
 .toast.show{opacity:1}
 .loader{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:14px}
 .loader-mark{width:48px;height:48px;border:1px solid var(--gold);animation:spin 2s linear infinite}
 .loader-text{font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.32em;color:var(--gold);text-transform:uppercase}
 @keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:900px){
+  .split{grid-template-columns:1fr}
+  .pane-switch{display:flex;border-bottom:1px solid var(--line);position:sticky;top:71px;z-index:20;background:var(--bg-0)}
+  .pane-switch button{flex:1;background:transparent;border:none;color:var(--text-dim);padding:11px 0;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;cursor:pointer}
+  .pane-switch button.on{color:var(--gold-bright);background:rgba(200,170,110,0.1);box-shadow:inset 0 -2px 0 var(--gold)}
+  .split[data-view="build"] #simPane,.split[data-view="sim"] #buildPane{display:none}
+}
 @media(max-width:780px){
   main{padding:16px 12px 60px}
-  .split{grid-template-columns:1fr}
   .pane{min-height:auto;padding:16px}
   .brand-text h1{font-size:15px}
   .brand-text p{font-size:10px}
@@ -144,8 +232,15 @@ main{max-width:1400px;margin:0 auto;padding:24px 20px 80px}
   .keystone-slot{width:48px;height:48px}
   .rune-slot{width:36px;height:36px}
   .tab{padding:10px 14px;font-size:10px}
-  .notes-area{min-height:200px}
   .patch-tag{display:none}
+  .vs-grid{grid-template-columns:1fr 1fr;gap:6px}
+  .stat-card{padding:8px}
+  .stat-card dl{font-size:11px;gap:2px 6px}
+  .dmg-val .big{font-size:18px}
+}
+@media(max-width:420px){
+  .ctl-grid,.rank-wrap{grid-template-columns:1fr}
+  .vs-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -173,10 +268,12 @@ main{max-width:1400px;margin:0 auto;padding:24px 20px 80px}
 <div class="toast" id="toast"></div>
 <script>
 const CDN='https://ddragon.leagueoflegends.com/cdn';
+const WIKI_API='https://wiki.leagueoflegends.com/en-us/api.php?action=query&prop=revisions&titles=Module:ChampionData/data&rvprop=content&rvslots=main&format=json&formatversion=2&origin=*';
 let DD_VERSION=null;
 
-const state={data:{},champions:[],spells:[],runeTrees:[],currentChampion:null,currentBuildIdx:0,picker:null};
-const championMap={},spellMap={},runeMap={},treeMap={};
+const state={data:{},champions:[],spells:[],runeTrees:[],items:[],currentChampion:null,currentBuildIdx:0,picker:null,
+  wikiStats:{},ddStats:{},statSource:'yükleniyor',mobileView:'build'};
+const championMap={},spellMap={},runeMap={},treeMap={},itemMap={};
 
 const SHARDS={rows:[
 {label:'Saldırı',items:[
@@ -193,14 +290,34 @@ const SHARDS={rows:[
 {id:5001,name:'Sağlık Ölçek',icon:'perk-images/StatMods/StatModsHealthScalingIcon.png'}]}
 ]};
 
+/* ================= UDYR / RÜN SABİTLERİ (LoL Wiki, Udyr V26.09) ================= */
+const UDYR_FALLBACK={hp_base:664,hp_lvl:92,arm_base:31,arm_lvl:4.7,mr_base:32,mr_lvl:2.05,dam_base:62,dam_lvl:4,as_base:0.65,as_lvl:3,patch:'V26.09'};
+const Q_ON=[6,12,18,24,30,36];                 // Q on-hit düz
+const Q_BHP=[.01,.012,.014,.016,.018,.02];      // Q on-hit, bonus can oranı
+const Q_PCT=[.03,.04,.05,.06,.07,.08];          // pençe vuruşu %max can (+%3,5 / 100 bonus AD)
+const R_TICK=[10,18,26,34,42,50];               // fırtına tiki (+%17,5 AP)
+const RUNE={CONQ:8010,LAST_STAND:8299,COUP:8014,CUT_DOWN:8017};
+const ROW_NAMES={aa:'Düz auto',claw:'Q pençe vuruşu',onhit:'Q on-hit auto',qa:'Q✦ awaken vuruşu',bolt:'Tek yıldırım',ron:'R güçlü vuruş',rtick:'R fırtına tiki',ratick:'R✦ fırtına tiki',ign:'Tutuşturma'};
+
+const GROW=(b,g,L)=>b+g*(L-1)*(0.7025+0.0175*(L-1));     // Riot stat büyümesi
+const SCALE=(lo,hi,L)=>lo+(hi-lo)/17*(L-1)*(0.7025+0.0175*(L-1)); // "seviyeye göre" aralıklar
+const LERP=(lo,hi,L)=>lo+(hi-lo)*(L-1)/17;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const nf0=new Intl.NumberFormat('tr-TR',{maximumFractionDigits:0});
+const nf1=new Intl.NumberFormat('tr-TR',{maximumFractionDigits:1});
+const nf2=new Intl.NumberFormat('tr-TR',{maximumFractionDigits:2});
+const pctf=v=>'%'+nf1.format(v*100);
+
 const STORAGE_KEY='udyr-codex-v3';
+const WIKI_CACHE_KEY='udyr-codex-wikistats-v1';
 function loadData(){try{const raw=localStorage.getItem(STORAGE_KEY);if(raw)state.data=JSON.parse(raw)}catch(e){console.warn('load fail',e)}}
 function saveData(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state.data))}catch(e){toast('Kaydedilemedi: '+e.message)}}
+let saveT;function saveSoon(){clearTimeout(saveT);saveT=setTimeout(saveData,300)}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2200)}
 function escapeHtml(s){if(s==null)return '';return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 
-async function fetchJSON(url){
-  const res=await fetch(url);
+async function fetchJSON(url,opts){
+  const res=await fetch(url,opts);
   if(!res.ok)throw new Error('HTTP '+res.status);
   return res.json();
 }
@@ -209,32 +326,226 @@ async function fetchLocale(version,file){
   catch(e){return await fetchJSON(`${CDN}/${version}/data/en_US/${file}`)}
 }
 
+/* ================= LUA (Module:ChampionData/data) PARSER ================= */
+function parseLua(src){
+  let i=0;const n=src.length;
+  const isWS=c=>c===' '||c==='\n'||c==='\t'||c==='\r';
+  function ws(){
+    for(;;){
+      while(i<n&&isWS(src[i]))i++;
+      if(src[i]==='-'&&src[i+1]==='-'){
+        const m=/^--\[(=*)\[/.exec(src.slice(i,i+12));
+        if(m){const close=']'+m[1]+']';const e=src.indexOf(close,i+m[0].length);i=e<0?n:e+close.length;}
+        else{const e=src.indexOf('\n',i);i=e<0?n:e+1;}
+        continue;
+      }
+      break;
+    }
+  }
+  function str(){
+    const q=src[i++];let s='';
+    while(i<n&&src[i]!==q){
+      if(src[i]==='\\'){i++;const c=src[i++];s+=c==='n'?'\n':c==='t'?'\t':c;}
+      else s+=src[i++];
+    }
+    i++;return s;
+  }
+  function longStr(){
+    const m=/^\[(=*)\[/.exec(src.slice(i,i+12));const close=']'+m[1]+']';
+    const st=i+m[0].length;const e=src.indexOf(close,st);i=e+close.length;return src.slice(st,e);
+  }
+  function num(){
+    const m=/^-?\s*(0x[0-9a-fA-F]+|\d*\.?\d+(?:[eE][-+]?\d+)?)/.exec(src.slice(i,i+40));
+    if(!m)throw new Error('Lua sayı hatası @'+i);
+    i+=m[0].length;return Number(m[0].replace(/\s/g,''));
+  }
+  function val(){
+    ws();const c=src[i];
+    if(c==='{')return table();
+    if(c==='"'||c==="'")return str();
+    if(c==='['&&/^\[=*\[/.test(src.slice(i,i+12)))return longStr();
+    if(c==='-'||c==='.'||(c>='0'&&c<='9'))return num();
+    const m=/^[A-Za-z_]\w*/.exec(src.slice(i,i+64));
+    if(m){i+=m[0].length;if(m[0]==='true')return true;if(m[0]==='false')return false;if(m[0]==='nil')return null;return m[0];}
+    throw new Error('Lua ayrıştırma hatası @'+i);
+  }
+  function table(){
+    i++;const obj={};let arr=1;
+    for(;;){
+      ws();
+      if(i>=n)throw new Error('Lua tablo sonu yok');
+      if(src[i]==='}'){i++;break;}
+      let key;
+      if(src[i]==='['&&!/^\[=*\[/.test(src.slice(i,i+12))){
+        i++;key=val();ws();i++;ws();i++; // ] =
+      }else{
+        const m=/^([A-Za-z_]\w*)\s*=(?!=)/.exec(src.slice(i,i+80));
+        if(m){key=m[1];i+=m[0].length;}
+      }
+      const v=val();
+      if(key===undefined)key=arr++;
+      obj[key]=v;ws();
+      if(src[i]===','||src[i]===';')i++;
+    }
+    return obj;
+  }
+  const m=/(^|\n)\s*return\s*\{/.exec(src);
+  if(!m)throw new Error('return { bulunamadı');
+  i=m.index+m[0].length-1;
+  return table();
+}
+
+function normStats(s,patch){
+  const num=v=>typeof v==='number'?v:parseFloat(v);
+  const o={hp_base:num(s.hp_base),hp_lvl:num(s.hp_lvl),arm_base:num(s.arm_base),arm_lvl:num(s.arm_lvl),
+    mr_base:num(s.mr_base),mr_lvl:num(s.mr_lvl),dam_base:num(s.dam_base),dam_lvl:num(s.dam_lvl),
+    as_base:num(s.as_base),as_lvl:num(s.as_lvl),patch:patch||''};
+  return ['hp_base','arm_base','mr_base','dam_base'].every(k=>isFinite(o[k]))?o:null;
+}
+function wikiToStats(data){
+  const out={};
+  const byApi={},byKey={};
+  state.champions.forEach(c=>{byApi[c.id.toLowerCase()]=c.id;byKey[String(c.key)]=c.id});
+  const entries=Object.entries(data).filter(([,d])=>d&&typeof d==='object'&&d.stats);
+  for(const [name,d] of entries){
+    const api=(d.apiname||'').toLowerCase();
+    const id=byApi[api];if(!id||out[id])continue;
+    const st=normStats(d.stats,d.patch);if(st)out[id]=st;
+  }
+  for(const [name,d] of entries){
+    const id=byKey[String(d.id)];if(!id||out[id])continue;
+    const c=championMap[id];
+    if(c&&name!==c.name&&name!==c.id)continue;
+    const st=normStats(d.stats,d.patch);if(st)out[id]=st;
+  }
+  return out;
+}
+async function loadWikiStats(){
+  try{
+    const cached=JSON.parse(localStorage.getItem(WIKI_CACHE_KEY)||'null');
+    if(cached&&cached.stats&&Date.now()-cached.t<3*864e5&&cached.dd===DD_VERSION){
+      state.wikiStats=cached.stats;state.statSource='wiki';return;
+    }
+  }catch(e){}
+  try{
+    const ctrl=new AbortController();const to=setTimeout(()=>ctrl.abort(),15000);
+    const j=await fetchJSON(WIKI_API,{signal:ctrl.signal});clearTimeout(to);
+    const page=Array.isArray(j.query.pages)?j.query.pages[0]:Object.values(j.query.pages)[0];
+    const rev=page.revisions[0];
+    const content=rev.slots?(rev.slots.main.content!=null?rev.slots.main.content:rev.slots.main['*']):(rev.content!=null?rev.content:rev['*']);
+    const stats=wikiToStats(parseLua(content));
+    if(Object.keys(stats).length<50)throw new Error('Wiki verisi eksik ('+Object.keys(stats).length+')');
+    state.wikiStats=stats;state.statSource='wiki';
+    try{localStorage.setItem(WIKI_CACHE_KEY,JSON.stringify({t:Date.now(),dd:DD_VERSION,stats}))}catch(e){}
+  }catch(e){
+    console.warn('Wiki stat çekilemedi, Data Dragon kullanılıyor:',e);
+    state.statSource='ddragon';
+  }
+}
+function champStats(id){
+  if(state.wikiStats[id])return Object.assign({src:'wiki'},state.wikiStats[id]);
+  if(state.ddStats[id])return Object.assign({src:'ddragon'},state.ddStats[id]);
+  if(id==='Udyr')return Object.assign({src:'sabit'},UDYR_FALLBACK);
+  return null;
+}
+
+/* ================= ITEMLER ================= */
+const ITEM_LABELS={'attack damage':'ad','ability power':'ap','health':'hp','armor':'arm','magic resist':'mr','lethality':'leth','armor penetration':'apen','magic penetration':'mpen','attack speed':'as','ability haste':'ah','critical strike chance':'crit'};
+function parseItemStats(en){
+  const st={};
+  const m=(en.description||'').match(/<stats>([\s\S]*?)<\/stats>/i);
+  if(m){
+    m[1].split(/<br\s*\/?>/i).forEach(line=>{
+      const t=line.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();
+      const mm=t.match(/^([\d.,]+)\s*(%?)\s+(.+)$/);if(!mm)return;
+      const key=ITEM_LABELS[mm[3].trim().toLowerCase()];if(!key)return;
+      const v=parseFloat(mm[1].replace(',','.'));if(!isFinite(v))return;
+      if(key==='mpen'&&mm[2])st.mpenPct=(st.mpenPct||0)+v;
+      else st[key]=(st[key]||0)+v;
+    });
+  }
+  const s=en.stats||{};
+  if(st.ad==null&&s.FlatPhysicalDamageMod)st.ad=s.FlatPhysicalDamageMod;
+  if(st.ap==null&&s.FlatMagicDamageMod)st.ap=s.FlatMagicDamageMod;
+  if(st.hp==null&&s.FlatHPPoolMod)st.hp=s.FlatHPPoolMod;
+  if(st.arm==null&&s.FlatArmorMod)st.arm=s.FlatArmorMod;
+  if(st.mr==null&&s.FlatSpellBlockMod)st.mr=s.FlatSpellBlockMod;
+  if(st.as==null&&s.PercentAttackSpeedMod)st.as=s.PercentAttackSpeedMod*100;
+  return st;
+}
+function buildItems(enJson,trJson){
+  const seen=new Set();const out=[];
+  for(const [id,it] of Object.entries(enJson.data)){
+    if(!it.maps||!it.maps['11'])continue;
+    if(!it.gold||!it.gold.purchasable||it.gold.total<=0)continue;
+    if(it.inStore===false||it.requiredChampion||it.requiredAlly||it.hideFromAll)continue;
+    const tags=it.tags||[];
+    if(tags.includes('Consumable')||tags.includes('Trinket'))continue;
+    const stats=parseItemStats(it);
+    if(!['ad','ap','hp','arm','mr','leth','apen','mpen','mpenPct','as'].some(k=>stats[k]))continue;
+    if(seen.has(it.name))continue;seen.add(it.name);
+    const tr=trJson&&trJson.data[id];
+    const completed=!(it.into&&it.into.length);
+    const group=tags.includes('Boots')?1:completed?0:2;
+    out.push({id,name:(tr&&tr.name)||it.name,enName:it.name,gold:it.gold.total,img:it.image.full,stats,group});
+  }
+  out.sort((a,b)=>a.group-b.group||b.gold-a.gold||a.name.localeCompare(b.name,'tr'));
+  return out;
+}
+function sumItems(ids){
+  const t={ad:0,ap:0,hp:0,arm:0,mr:0,leth:0,mpen:0,as:0};let keepA=1,keepM=1;
+  (ids||[]).forEach(id=>{
+    const it=itemMap[id];if(!it)return;const s=it.stats;
+    ['ad','ap','hp','arm','mr','leth','mpen','as'].forEach(k=>{if(s[k])t[k]+=s[k]});
+    if(s.apen)keepA*=1-s.apen/100;
+    if(s.mpenPct)keepM*=1-s.mpenPct/100;
+  });
+  t.apenF=1-keepA;t.mpenF=1-keepM;return t;
+}
+function itemStatText(s){
+  const p=[];
+  if(s.ad)p.push(s.ad+' AD');if(s.ap)p.push(s.ap+' AP');if(s.hp)p.push(s.hp+' can');
+  if(s.arm)p.push(s.arm+' zırh');if(s.mr)p.push(s.mr+' MR');if(s.leth)p.push(s.leth+' ölümcüllük');
+  if(s.apen)p.push('%'+s.apen+' zırh delme');if(s.mpen)p.push(s.mpen+' büyü delme');if(s.mpenPct)p.push('%'+s.mpenPct+' büyü delme');
+  if(s.as)p.push('%'+s.as+' AS');
+  return p.join(', ');
+}
+
+/* ================= BOOTSTRAP ================= */
 async function bootstrap(){
   loadData();
   try{
     const versions=await fetchJSON('https://ddragon.leagueoflegends.com/api/versions.json');
     DD_VERSION=versions[0];
     document.getElementById('patchTag').textContent=DD_VERSION;
-    const [champJson,spellJson,runeJson]=await Promise.all([
+    const [champJson,spellJson,runeJson,itemEn,itemTr]=await Promise.all([
       fetchLocale(DD_VERSION,'champion.json'),
       fetchLocale(DD_VERSION,'summoner.json'),
-      fetchLocale(DD_VERSION,'runesReforged.json')
+      fetchLocale(DD_VERSION,'runesReforged.json'),
+      fetchJSON(`${CDN}/${DD_VERSION}/data/en_US/item.json`).catch(()=>null),
+      fetchJSON(`${CDN}/${DD_VERSION}/data/tr_TR/item.json`).catch(()=>null)
     ]);
     state.champions=Object.values(champJson.data).map(c=>({id:c.id,name:c.name,key:c.key})).sort((a,b)=>a.name.localeCompare(b.name,'tr'));
     state.champions.forEach(c=>championMap[c.id]=c);
+    Object.values(champJson.data).forEach(c=>{
+      const s=c.stats;if(!s)return;
+      state.ddStats[c.id]=normStats({hp_base:s.hp,hp_lvl:s.hpperlevel,arm_base:s.armor,arm_lvl:s.armorperlevel,mr_base:s.spellblock,mr_lvl:s.spellblockperlevel,dam_base:s.attackdamage,dam_lvl:s.attackdamageperlevel,as_base:s.attackspeed,as_lvl:s.attackspeedperlevel},'');
+    });
     state.spells=Object.values(spellJson.data).filter(s=>s.modes&&s.modes.includes('CLASSIC')).map(s=>({id:s.id,name:s.name,img:s.image.full})).sort((a,b)=>a.name.localeCompare(b.name,'tr'));
     state.spells.forEach(s=>spellMap[s.id]=s);
     state.runeTrees=runeJson.map(t=>({id:t.id,key:t.key,name:t.name,icon:t.icon,slots:t.slots.map(sl=>({runes:sl.runes.map(r=>({id:r.id,name:r.name,icon:r.icon}))}))}));
     state.runeTrees.forEach(t=>{treeMap[t.id]=t;t.slots.forEach(sl=>sl.runes.forEach(r=>runeMap[r.id]={...r,treeId:t.id}))});
+    if(itemEn){state.items=buildItems(itemEn,itemTr);state.items.forEach(it=>itemMap[it.id]=it);}
     renderSelection();
+    loadWikiStats().then(()=>{if(state.currentChampion)renderSim();});
   }catch(e){
     console.error(e);
     document.getElementById('app').innerHTML=`<div class="loader"><div class="loader-text" style="color:var(--danger)">Bağlantı Hatası</div><div style="color:var(--text-dim);font-size:13px;text-align:center;max-width:400px;line-height:1.6">${escapeHtml(e.message)}<br><br>İnternet bağlantını kontrol et veya birkaç saniye sonra sayfayı yenile.</div><button class="back-btn" onclick="location.reload()">↻ Yeniden Dene</button></div>`;
   }
 }
 
+/* ================= ŞAMPİYON SEÇİMİ ================= */
 let currentSearch='';
-
 function renderSelection(){
   state.currentChampion=null;
   document.getElementById('app').innerHTML=`
@@ -263,23 +574,39 @@ function renderChampionGrid(){
   grid.querySelectorAll('.champion-card').forEach(card=>card.addEventListener('click',()=>openMatchup(card.dataset.id)));
 }
 
+/* ================= BUILD VERİSİ ================= */
 function ensureChampData(id){
   if(!state.data[id])state.data[id]={builds:[]};
   if(state.data[id].builds.length===0)state.data[id].builds.push(makeEmptyBuild('Build 1'));
+  state.data[id].builds.forEach(ensureBuild);
   return state.data[id];
 }
 function makeEmptyBuild(name){
-  return{id:'b_'+Date.now()+'_'+Math.random().toString(36).slice(2,6),name,
+  return ensureBuild({id:'b_'+Date.now()+'_'+Math.random().toString(36).slice(2,6),name,
     primary:{treeId:null,keystone:null,slot1:null,slot2:null,slot3:null},
-    sub:{treeId:null,slot1:null,slot2:null},shards:[null,null,null],spells:[null,null],notes:''};
+    sub:{treeId:null,slot1:null,slot2:null},shards:[null,null,null],spells:[null,null],notes:''});
+}
+function ensureBuild(b){
+  if(!Array.isArray(b.items))b.items=[null,null,null,null,null,null];
+  const def={myLv:9,enLv:9,qr:-1,rr:1,enItems:[null,null,null,null,null,null],my:{ad:0,ap:0,hp:0},en:{hp:0,arm:0,mr:0},
+    conq:12,adapt:'auto',selfHp:100,enHp:100,strikes:6,counts:{}};
+  b.sim=Object.assign({},def,b.sim||{});
+  b.sim.my=Object.assign({},def.my,b.sim.my||{});
+  b.sim.en=Object.assign({},def.en,b.sim.en||{});
+  if(!Array.isArray(b.sim.enItems))b.sim.enItems=def.enItems.slice();
+  if(!b.sim.counts||typeof b.sim.counts!=='object')b.sim.counts={};
+  return b;
 }
 function openMatchup(champId){state.currentChampion=champId;state.currentBuildIdx=0;ensureChampData(champId);renderMatchup()}
+function currentBuild(){const d=state.data[state.currentChampion];return d&&d.builds[state.currentBuildIdx]}
 
+/* ================= MATCHUP SAYFASI ================= */
 function renderMatchup(){
   const champId=state.currentChampion;
   const champ=championMap[champId];
   const champData=state.data[champId];
   const build=champData.builds[state.currentBuildIdx];
+  const scrollY=window.scrollY;
   document.getElementById('app').innerHTML=`
     <div class="matchup-view">
       <span class="corner-bl"></span><span class="corner-br"></span>
@@ -301,8 +628,12 @@ function renderMatchup(){
           </button>`).join('')}
         <button class="tab-add" id="addTabBtn" title="Yeni build">+</button>
       </div>
-      <div class="split">
-        <div class="pane">
+      <div class="pane-switch" id="paneSwitch">
+        <button data-view="build" class="${state.mobileView==='build'?'on':''}">Build</button>
+        <button data-view="sim" class="${state.mobileView==='sim'?'on':''}">Simülasyon</button>
+      </div>
+      <div class="split" data-view="${state.mobileView}">
+        <div class="pane" id="buildPane">
           <input class="build-name-input" id="buildName" value="${escapeHtml(build.name)}" placeholder="Build adı">
           <h3 class="subhead">Rünler</h3>
           ${renderRuneTree('primary',build.primary)}
@@ -315,14 +646,30 @@ function renderMatchup(){
             ${renderSpellSlot(build.spells[0],0)}
             ${renderSpellSlot(build.spells[1],1)}
           </div>
-        </div>
-        <div class="pane">
-          <h3 class="subhead">Notlar — vs ${escapeHtml(champ.name)}</h3>
+          <h3 class="subhead" style="margin-top:22px">Udyr İtemleri</h3>
+          ${renderItemRow(build.items,'my')}
+          <details class="extra" ${(build.sim.my.ad||build.sim.my.ap||build.sim.my.hp)?'open':''}>
+            <summary>Ek stat · pasif, stack</summary>
+            <div class="extra-body">
+              ${miniInput('my.ad','Ek AD',build.sim.my.ad)}
+              ${miniInput('my.ap','Ek AP',build.sim.my.ap)}
+              ${miniInput('my.hp','Ek can',build.sim.my.hp)}
+            </div>
+          </details>
+          <h3 class="subhead" style="margin-top:22px">Notlar — vs ${escapeHtml(champ.name)}</h3>
           <textarea class="notes-area" id="notesArea" placeholder="Lane fazı, all-in pencereleri, ward spotları, item öncelikleri...">${escapeHtml(build.notes)}</textarea>
         </div>
+        <div class="pane" id="simPane"></div>
       </div>
     </div>`;
+  window.scrollTo(0,scrollY);
   document.getElementById('backBtn').addEventListener('click',renderSelection);
+  document.getElementById('paneSwitch').addEventListener('click',e=>{
+    const b=e.target.closest('[data-view]');if(!b)return;state.mobileView=b.dataset.view;
+    document.querySelector('.split').dataset.view=state.mobileView;
+    document.querySelectorAll('#paneSwitch button').forEach(x=>x.classList.toggle('on',x===b));
+    const sw=document.getElementById('paneSwitch');if(sw.getBoundingClientRect().top<72)window.scrollTo(0,sw.offsetTop+document.querySelector('.matchup-view').offsetTop-72);
+  });
   document.getElementById('tabsBar').addEventListener('click',e=>{
     const delBtn=e.target.closest('.x');
     if(delBtn){e.stopPropagation();const idx=+delBtn.dataset.del;
@@ -337,14 +684,14 @@ function renderMatchup(){
     champData.builds.push(makeEmptyBuild('Build '+(champData.builds.length+1)));
     state.currentBuildIdx=champData.builds.length-1;saveData();renderMatchup();
   });
-  document.getElementById('buildName').addEventListener('input',e=>{build.name=e.target.value||'Adsız Build';saveData();});
-  let notesT;
-  document.getElementById('notesArea').addEventListener('input',e=>{
-    build.notes=e.target.value;clearTimeout(notesT);notesT=setTimeout(saveData,350);
-  });
+  document.getElementById('buildName').addEventListener('input',e=>{build.name=e.target.value||'Adsız Build';saveSoon();});
+  document.getElementById('notesArea').addEventListener('input',e=>{build.notes=e.target.value;saveSoon();});
   attachRuneHandlers(build);
   attachShardHandlers(build);
   attachSpellHandlers(build);
+  attachItemHandlers(document.getElementById('buildPane'),build);
+  attachMiniInputs(document.getElementById('buildPane'),build,()=>updateSimResults());
+  renderSim();
 }
 
 function renderRuneTree(type,treeState){
@@ -468,6 +815,291 @@ function openSpellPicker(idx,build){
   };
   renderPicker();
 }
+
+/* ---- item slotları ---- */
+function renderItemRow(arr,side){
+  const names=arr.map(id=>itemMap[id]).filter(Boolean).map(it=>escapeHtml(it.name));
+  return `<div class="item-row">${arr.map((id,i)=>{
+    const it=itemMap[id];
+    return it?`<div class="item-slot filled" data-item-side="${side}" data-item-idx="${i}" title="${escapeHtml(it.name)} · ${escapeHtml(itemStatText(it.stats))}"><img src="${CDN}/${DD_VERSION}/img/item/${it.img}" alt="${escapeHtml(it.name)}" onerror="this.style.opacity=0.2"></div>`
+      :`<div class="item-slot" data-item-side="${side}" data-item-idx="${i}"><span class="plus">+</span></div>`;
+  }).join('')}</div>
+  <div class="item-names">${names.length?names.join(' · '):(state.items.length?'<span style="color:var(--text-muted)">Boş — slota dokun</span>':'<span style="color:var(--danger)">Item listesi yüklenemedi</span>')}</div>`;
+}
+function attachItemHandlers(root,build){
+  root.querySelectorAll('[data-item-idx]').forEach(el=>el.addEventListener('click',()=>{
+    const arr=el.dataset.itemSide==='my'?build.items:build.sim.enItems;
+    openItemPicker(arr,+el.dataset.itemIdx,el.dataset.itemSide==='my'?'Udyr itemi':championMap[state.currentChampion].name+' itemi');
+  }));
+}
+function openItemPicker(arr,idx,title){
+  if(!state.items.length){toast('Item listesi yüklenemedi');return;}
+  const groups=['Tamamlanmış','Botlar','Ara itemler'];
+  state.picker={
+    title,search:true,wide:true,gridClass:'items',
+    onClear:arr[idx]?()=>{arr[idx]=null;closePicker();saveData();renderMatchup();}:null,
+    items:state.items.map(it=>({id:it.id,img:`${CDN}/${DD_VERSION}/img/item/${it.img}`,name:it.name,
+      label:it.name,search:(it.name+' '+it.enName).toLocaleLowerCase('tr'),group:groups[it.group],
+      title:`${it.name} · ${it.gold}g · ${itemStatText(it.stats)}`})),
+    onPick:(itemId)=>{arr[idx]=String(itemId);closePicker();saveData();renderMatchup();}
+  };
+  renderPicker();
+}
+
+/* ---- küçük sayı girişleri (ek statlar) ---- */
+function miniInput(path,label,val){
+  return `<div class="mini"><label>${label}</label><input type="number" inputmode="decimal" data-path="${path}" value="${val||0}" step="1"></div>`;
+}
+function getPath(o,p){return p.split('.').reduce((a,k)=>a&&a[k],o)}
+function setPath(o,p,v){const ks=p.split('.');const last=ks.pop();ks.reduce((a,k)=>a[k],o)[last]=v}
+function attachMiniInputs(root,build,after){
+  root.querySelectorAll('.mini input[data-path]').forEach(inp=>inp.addEventListener('input',()=>{
+    const v=parseFloat(inp.value);setPath(build.sim,inp.dataset.path,isFinite(v)?v:0);saveSoon();after();
+  }));
+}
+
+/* ================= SİMÜLASYON ================= */
+function hasRune(build,id){
+  const p=build.primary,s=build.sub;
+  return [p.keystone,p.slot1,p.slot2,p.slot3,s.slot1,s.slot2].includes(id);
+}
+function rankCap(L){return clamp(Math.floor((L+1)/2),1,6)}
+
+function compute(build,champId){
+  const S=build.sim,L=clamp(S.myLv,1,18),EL=clamp(S.enLv,1,18);
+  const us=champStats('Udyr'),es=champStats(champId);
+  if(!es)return null;
+  const it=sumItems(build.items),eit=sumItems(S.enItems);
+
+  // shardlar
+  let adaptN=0,shardHP=0;
+  (build.shards||[]).forEach((col,row)=>{
+    if(col==null)return;const sh=SHARDS.rows[row].items[col];
+    if(sh.id===5008)adaptN++;
+    if(sh.id===5001)shardHP+=LERP(10,180,L);
+    if(sh.id===5011)shardHP+=65;
+  });
+  const isAP=S.adapt==='ap'||(S.adapt==='auto'&&(it.ap+S.my.ap)>(it.ad+S.my.ad));
+  const conqOn=hasRune(build,RUNE.CONQ);
+  const stacks=conqOn?clamp(S.conq,0,12):0;
+  const conqPer=isAP?LERP(1.8,4.26,L):LERP(1.08,2.56,L);
+  const conqAD=isAP?0:stacks*conqPer,conqAP=isAP?stacks*conqPer:0;
+  const shardAD=isAP?0:adaptN*5.4,shardAP=isAP?adaptN*9:0;
+
+  const baseAD=GROW(us.dam_base,us.dam_lvl,L);
+  const bAD=it.ad+S.my.ad+shardAD+conqAD,AD=baseAD+bAD;
+  const AP=it.ap+S.my.ap+shardAP+conqAP;
+  const bHP=it.hp+S.my.hp+shardHP,HP=GROW(us.hp_base,us.hp_lvl,L)+bHP;
+
+  // rakip
+  const eHP=GROW(es.hp_base,es.hp_lvl,EL)+eit.hp+S.en.hp;
+  const eArm=GROW(es.arm_base,es.arm_lvl,EL)+eit.arm+S.en.arm;
+  const eMR=GROW(es.mr_base,es.mr_lvl,EL)+eit.mr+S.en.mr;
+  const eff=(R,pct,flat)=>R<=0?R:Math.max(0,R*(1-pct)-flat);
+  const effA=eff(eArm,it.apenF,it.leth),effM=eff(eMR,it.mpenF,it.mpen);
+  const mult=r=>r>=0?100/(100+r):2-100/(100-r);
+  const fA=mult(effA),fM=mult(effM);
+
+  // rün çarpanı (3. satır)
+  let amp=0;const ampNotes=[];
+  if(hasRune(build,RUNE.LAST_STAND)){const h=S.selfHp;const a=h>=60?0:h<=30?.11:.05+(60-h)/30*.06;amp+=a;ampNotes.push(`Last Stand +${pctf(a)}`);}
+  if(hasRune(build,RUNE.COUP)){const a=S.enHp<40?.08:0;amp+=a;ampNotes.push(`Coup de Grace +${pctf(a)}`);}
+  if(hasRune(build,RUNE.CUT_DOWN)){const a=S.enHp>60?.08:0;amp+=a;ampNotes.push(`Cut Down +${pctf(a)}`);}
+
+  // ranklar
+  const cap=rankCap(L);
+  const qr=S.qr<0?cap:clamp(S.qr,0,cap),rr=clamp(S.rr,0,cap);
+  const qi=Math.max(0,qr-1),ri=Math.max(0,rr-1);
+
+  // ham parçalar
+  const onhit=Q_ON[qi]+0.2*bAD+Q_BHP[qi]*bHP;
+  const clawPct=Q_PCT[qi]+0.035*bAD/100;
+  const awPct=SCALE(.02,.0424,L)+0.015*bAD/100+0.001*bHP/100;
+  const boltPct=SCALE(.015,.0318,L)+0.006*AP/100;
+  const rOn=SCALE(10,43.53,L)+0.35*AP;
+  const rTick=R_TICK[ri]+0.175*AP;
+  const raPct=SCALE(.01,.0184,L)+0.004375*AP/100;
+  const strikes=clamp(S.strikes,0,6);
+  const ignOn=(build.spells||[]).includes('SummonerDot');
+  const ignTotal=L<=5?70+20*(L-1):150+25*(L-5);
+
+  const P=v=>({t:'p',raw:v}),M=v=>({t:'m',raw:v}),T=v=>({t:'t',raw:v});
+  const rows=[
+    {k:'aa',parts:[P(AD)],sub:`${nf0.format(AD)} AD`},
+    {k:'claw',off:qr<1,parts:[P(AD),P(onhit),P(clawPct*eHP)],
+      sub:`AD ${nf0.format(AD)} + on-hit ${nf0.format(onhit)} + ${pctf(clawPct)} max can (${nf0.format(clawPct*eHP)})`},
+    {k:'onhit',off:qr<1,parts:[P(AD),P(onhit)],sub:`AD ${nf0.format(AD)} + on-hit ${nf0.format(onhit)} · Q'dan sonraki 4 sn`},
+    {k:'qa',off:qr<1,parts:[P(AD),P(onhit),P(clawPct*eHP),P(awPct*eHP),M(strikes*boltPct*eHP)],
+      sub:`Pençe + awaken ${pctf(awPct)} max can (${nf0.format(awPct*eHP)}) + ${strikes} yıldırım (${nf0.format(strikes*boltPct*eHP)} büyü)`},
+    {k:'bolt',off:qr<1,parts:[M(boltPct*eHP)],sub:`${pctf(boltPct)} max can büyü`},
+    {k:'ron',off:rr<1,parts:[P(AD),M(rOn)],sub:`AD ${nf0.format(AD)} + ${nf0.format(rOn)} büyü`},
+    {k:'rtick',off:rr<1,parts:[M(rTick)],sub:`0,5 sn'de bir · 4 sn'de 8 tik`,total:8},
+    {k:'ratick',off:rr<1,parts:[M(rTick),M(raPct*eHP)],sub:`Tik ${nf0.format(rTick)} + ${pctf(raPct)} max can (${nf0.format(raPct*eHP)}) · 8 tik`,total:8},
+  ];
+  if(ignOn)rows.push({k:'ign',parts:[T(ignTotal)],sub:`5 sn boyunca, gerçek hasar`});
+  rows.forEach(r=>{
+    r.name=ROW_NAMES[r.k];
+    let p=0,m=0,t=0;
+    r.parts.forEach(x=>{if(x.t==='p')p+=x.raw*fA;else if(x.t==='m')m+=x.raw*fM;else t+=x.raw;});
+    r.p=p*(1+amp);r.m=m*(1+amp);r.t=t*(1+amp);r.dmg=r.p+r.m+r.t;
+    r.raw=r.parts.reduce((a,x)=>a+x.raw,0);
+  });
+  const curHP=eHP*clamp(S.enHp,1,100)/100;
+  return {L,EL,cap,qr,rr,us,es,it,eit,AD,baseAD,bAD,AP,HP,bHP,eHP,eArm,eMR,effA,effM,fA,fM,amp,ampNotes,
+    conqOn,stacks,conqPer,isAP,adaptN,rows,curHP,ignOn};
+}
+
+function ctl(path,label,min,max,val,fmt){
+  return `<div class="ctl"><label>${label}<b data-out="${path}">${fmt?fmt(val):val}</b></label>
+    <input type="range" min="${min}" max="${max}" step="1" value="${val}" data-ctl="${path}"></div>`;
+}
+function rankSeg(key,label,val,cap,auto){
+  const btns=[];
+  if(auto)btns.push(`<button data-rank="${key}" data-v="-1" class="${val<0?'on':''}">Max</button>`);
+  for(let r=auto?1:0;r<=6;r++)btns.push(`<button data-rank="${key}" data-v="${r}" class="${val===r?'on':''}" ${r>cap?'disabled':''}>${r}</button>`);
+  return `<div><div class="slot-label" style="margin-top:0">${label}</div><div class="seg">${btns.join('')}</div></div>`;
+}
+
+function renderSim(){
+  const pane=document.getElementById('simPane');if(!pane)return;
+  const build=currentBuild();const S=build.sim;
+  const champ=championMap[state.currentChampion];
+  const conqOn=hasRune(build,RUNE.CONQ),ls=hasRune(build,RUNE.LAST_STAND),cdg=hasRune(build,RUNE.COUP),cut=hasRune(build,RUNE.CUT_DOWN);
+  const runeIcon=id=>runeMap[id]?`<img src="${CDN}/img/${runeMap[id].icon}" alt="">`:'';
+  const runeBox=(conqOn||ls||cdg||cut)?`
+    <div class="sim-block rune-box">
+      <div class="rb-head">${conqOn?runeIcon(RUNE.CONQ):''}${ls?runeIcon(RUNE.LAST_STAND):''}${cdg?runeIcon(RUNE.COUP):''}${cut?runeIcon(RUNE.CUT_DOWN):''}<span>Build'deki rünler</span></div>
+      <div class="ctl-grid">
+        ${conqOn?ctl('conq','Yenilmez stack',0,12,S.conq):''}
+        ${conqOn?`<div><div class="slot-label" style="margin-top:0">Adaptif</div><div class="seg">${['auto','ad','ap'].map(v=>`<button data-adapt="${v}" class="${S.adapt===v?'on':''}">${v==='auto'?'Oto':v.toUpperCase()}</button>`).join('')}</div></div>`:''}
+        ${ls?ctl('selfHp','Kendi canın',1,100,S.selfHp,v=>'%'+v):''}
+        ${(cdg||cut)?ctl('enHp','Rakibin canı',1,100,S.enHp,v=>'%'+v):''}
+      </div>
+    </div>`:'';
+  pane.innerHTML=`
+    <h3 class="subhead">Hasar Simülasyonu</h3>
+    <div class="sim-block ctl-grid">
+      ${ctl('myLv','Udyr seviyesi',1,18,S.myLv)}
+      ${ctl('enLv',escapeHtml(champ.name)+' seviyesi',1,18,S.enLv)}
+    </div>
+    <div class="sim-block rank-wrap" id="rankWrap"></div>
+    <div class="sim-block">
+      <h3 class="subhead" style="margin-bottom:8px">${escapeHtml(champ.name)} İtemleri</h3>
+      ${renderItemRow(S.enItems,'en')}
+      <details class="extra" ${(S.en.hp||S.en.arm||S.en.mr)?'open':''}>
+        <summary>Ek stat · rün, pasif, stack</summary>
+        <div class="extra-body">
+          ${miniInput('en.hp','Ek can',S.en.hp)}
+          ${miniInput('en.arm','Ek zırh',S.en.arm)}
+          ${miniInput('en.mr','Ek MR',S.en.mr)}
+        </div>
+      </details>
+    </div>
+    ${runeBox}
+    <div class="sim-block ctl-grid">
+      ${ctl('strikes','Q✦ başına rakibe düşen yıldırım',0,6,S.strikes)}
+    </div>
+    <div id="simOut"></div>`;
+  renderRanks();
+  attachItemHandlers(pane,build);
+  attachMiniInputs(pane,build,()=>updateSimResults());
+  pane.querySelectorAll('input[data-ctl]').forEach(inp=>inp.addEventListener('input',()=>{
+    const k=inp.dataset.ctl,v=+inp.value;S[k]=v;
+    const out=pane.querySelector(`[data-out="${k}"]`);if(out)out.textContent=(k==='selfHp'||k==='enHp')?'%'+v:v;
+    if(k==='myLv')renderRanks();
+    saveSoon();updateSimResults();
+  }));
+  pane.querySelectorAll('[data-adapt]').forEach(b=>b.addEventListener('click',()=>{
+    S.adapt=b.dataset.adapt;pane.querySelectorAll('[data-adapt]').forEach(x=>x.classList.toggle('on',x===b));saveSoon();updateSimResults();
+  }));
+  updateSimResults();
+}
+function renderRanks(){
+  const wrap=document.getElementById('rankWrap');if(!wrap)return;
+  const S=currentBuild().sim,cap=rankCap(S.myLv);
+  wrap.innerHTML=rankSeg('qr','Q rankı',S.qr,cap,true)+rankSeg('rr','R rankı',S.rr,cap,false)+'<div class="hint" id="rankHint" style="grid-column:1/-1;margin-top:0"></div>';
+  wrap.querySelectorAll('[data-rank]').forEach(b=>b.addEventListener('click',()=>{
+    S[b.dataset.rank]=+b.dataset.v;saveSoon();renderRanks();updateSimResults();
+  }));
+}
+
+function updateSimResults(){
+  const out=document.getElementById('simOut');if(!out)return;
+  const build=currentBuild(),S=build.sim;
+  const champ=championMap[state.currentChampion];
+  const R=compute(build,state.currentChampion);
+  if(!R){out.innerHTML=`<div class="hint warn">${escapeHtml(champ.name)} için stat verisi bulunamadı.</div>`;return;}
+  const hint=document.getElementById('rankHint');
+  if(hint){
+    const used=R.qr+R.rr;const msgs=[];
+    if(S.qr>=0&&S.qr>R.cap||S.rr>R.cap)msgs.push(`Bu seviyede rank en fazla ${R.cap} olabilir.`);
+    if(used>R.L)msgs.push(`Q ${R.qr} + R ${R.rr} = ${used} yetenek puanı, ama Udyr ${R.L}. seviyede, ${R.L} puanı var.`);
+    hint.className='hint'+(msgs.length?' warn':'');hint.textContent=msgs.join(' ');
+  }
+  const srcTag=s=>s==='wiki'?'<span class="src-tag wiki">Wiki</span>':s==='ddragon'?'<span class="src-tag">Data Dragon</span>':'<span class="src-tag">Sabit</span>';
+  const pen=[];
+  if(R.it.leth)pen.push(`${nf0.format(R.it.leth)} ölümcüllük`);
+  if(R.it.apenF)pen.push(`${pctf(R.it.apenF)} zırh delme`);
+  if(R.it.mpen)pen.push(`${nf0.format(R.it.mpen)} büyü delme`);
+  if(R.it.mpenF)pen.push(`${pctf(R.it.mpenF)} büyü delme`);
+  const counts=S.counts;
+  let sum=0;const sumParts={p:0,m:0,t:0};
+  R.rows.forEach(r=>{const c=r.off?0:(counts[r.k]||0);if(c){sum+=c*r.dmg;sumParts.p+=c*r.p;sumParts.m+=c*r.m;sumParts.t+=c*r.t;}});
+  const anyCount=R.rows.some(r=>!r.off&&counts[r.k]);
+  const bar=(r,base)=>{const w=x=>clamp(x/base*100,0,100);return `<div class="dmg-bar"><i style="width:${w(r.p)}%;background:var(--phys)"></i><i style="width:${w(r.m)}%;background:var(--magic)"></i><i style="width:${w(r.t)}%;background:var(--true)"></i></div>`;};
+  const pending=state.statSource==='yükleniyor'?' <span class="src-tag">wiki yükleniyor…</span>':'';
+  out.innerHTML=`
+    <div class="sim-block vs-grid">
+      <div class="stat-card">
+        <h4>Udyr · Sv ${R.L} ${srcTag(R.us.src)}</h4>
+        <dl>
+          <dt>AD</dt><dd>${nf0.format(R.AD)} <small>(+${nf0.format(R.bAD)})</small></dd>
+          <dt>AP</dt><dd>${nf0.format(R.AP)}</dd>
+          <dt>Can</dt><dd>${nf0.format(R.HP)} <small>(+${nf0.format(R.bHP)})</small></dd>
+          ${R.conqOn?`<dt>Yenilmez</dt><dd>${R.stacks} st <small>+${nf0.format(R.stacks*R.conqPer)} ${R.isAP?'AP':'AD'}</small></dd>`:''}
+          ${pen.length?`<dt>Delme</dt><dd><small>${pen.join(' · ')}</small></dd>`:''}
+        </dl>
+      </div>
+      <div class="stat-card">
+        <h4>${escapeHtml(champ.name)} · Sv ${R.EL} ${srcTag(R.es.src)}${pending}</h4>
+        <dl>
+          <dt>Can</dt><dd>${nf0.format(R.eHP)}${S.enHp<100&&(hasRune(build,RUNE.COUP)||hasRune(build,RUNE.CUT_DOWN))?` <small>(şu an ${nf0.format(R.curHP)})</small>`:''}</dd>
+          <dt>Zırh</dt><dd>${nf0.format(R.eArm)} <small>→ ${nf0.format(R.effA)} · ×${nf2.format(R.fA)}</small></dd>
+          <dt>MR</dt><dd>${nf0.format(R.eMR)} <small>→ ${nf0.format(R.effM)} · ×${nf2.format(R.fM)}</small></dd>
+          ${R.ampNotes.length?`<dt>Rün</dt><dd><small>${R.ampNotes.join(' · ')}</small></dd>`:''}
+        </dl>
+      </div>
+    </div>
+    <div class="legend"><span class="p">Fiziksel</span><span class="m">Büyü</span><span class="t">Gerçek</span><span style="margin-left:auto;letter-spacing:0.08em">Direnç sonrası · vuruş başına</span></div>
+    <div id="dmgRows">
+      ${R.rows.map(r=>{
+        const hits=r.dmg>0?Math.ceil(R.curHP/r.dmg):Infinity;
+        const tot=r.total?` · 4 sn: <b style="color:var(--gold-bright)">${nf0.format(r.dmg*r.total)}</b>`:'';
+        return `<div class="dmg-row ${r.off?'off':''}">
+          <div><div class="dmg-name">${r.name}</div><div class="dmg-sub">${r.off?'Rank 0 — bu yetenek yok':r.sub+tot}</div></div>
+          <div class="dmg-val"><div class="big">${r.off?'—':nf0.format(r.dmg)}</div><div class="pct">${r.off?'':pctf(r.dmg/R.eHP)+' · '+(isFinite(hits)?hits+' vuruş':'—')}</div></div>
+          <div class="stepper" ${r.off?'style="visibility:hidden"':''}><button data-cnt="${r.k}" data-d="-1" aria-label="azalt">−</button><span>${counts[r.k]||0}</span><button data-cnt="${r.k}" data-d="1" aria-label="arttır">+</button></div>
+          ${r.off?'':bar(r,R.eHP)}
+        </div>`;}).join('')}
+    </div>
+    <div class="sum-card">
+      ${anyCount?`
+        <div class="sum-top">
+          <div><div class="slot-label" style="margin:0 0 2px">Seçilenlerin toplamı</div><div class="v">${nf0.format(sum)} <span style="font-size:12px;color:var(--text-dim)">/ ${nf0.format(R.curHP)} can</span></div></div>
+          <div style="display:flex;align-items:center;gap:10px"><span class="verdict ${sum>=R.curHP?'kill':'nokill'}">${sum>=R.curHP?'Ölür':'Kalan '+nf0.format(R.curHP-sum)}</span><button class="sum-reset" id="sumReset">Sıfırla</button></div>
+        </div>
+        <div class="hpbar">${['p','m','t'].map(k=>`<i style="width:${clamp(sumParts[k]/R.curHP*100,0,100)}%;background:var(--${k==='p'?'phys':k==='m'?'magic':'true'})"></i>`).join('')}</div>
+        <div class="hint">Fırtına satırlarında sayı tik sayısıdır (4 sn = 8 tik). Rün çarpanları rakibin can yüzdesine göre sabit alınır.</div>`
+      :`<div class="hint" style="margin:0">Satırlardaki <b style="color:var(--gold-bright)">+</b> ile vuruş ekle, toplam hasarı rakibin canıyla karşılaştırsın.</div>`}
+    </div>
+    <div class="hint" style="margin-top:12px">Stat kaynağı: ${R.es.src==='wiki'?'LoL Wiki (Module:ChampionData)':R.es.src==='ddragon'?"Data Dragon — wiki'ye ulaşılamadı":'sabit'}${R.es.patch?' · rakibin son stat değişikliği '+escapeHtml(R.es.patch):''}. Udyr yetenek oranları wiki V26.09. İtem pasifleri hesaba katılmaz, gerekiyorsa "Ek stat"a ekle.</div>`;
+  out.querySelectorAll('[data-cnt]').forEach(b=>b.addEventListener('click',()=>{
+    const k=b.dataset.cnt;counts[k]=clamp((counts[k]||0)+(+b.dataset.d),0,99);if(!counts[k])delete counts[k];saveSoon();updateSimResults();
+  }));
+  const rs=document.getElementById('sumReset');if(rs)rs.addEventListener('click',()=>{S.counts={};saveSoon();updateSimResults();});
+}
+
+/* ================= PICKER ================= */
 function renderPicker(){
   if(!state.picker)return;
   const existing=document.getElementById('pickerModal');
@@ -475,23 +1107,28 @@ function renderPicker(){
   const p=state.picker;
   const div=document.createElement('div');
   div.id='pickerModal';div.className='modal-backdrop';
+  let lastGroup=null;
+  const cells=p.items.map(it=>{
+    let head='';
+    if(it.group&&it.group!==lastGroup){head=`</div><div class="picker-group" data-group="${escapeHtml(it.group)}">${escapeHtml(it.group)}</div><div class="picker-grid ${p.gridClass||''}">`;lastGroup=it.group;}
+    return head+`<div class="picker-item" data-pick="${escapeHtml(it.id)}" data-search="${escapeHtml(it.search||it.name.toLocaleLowerCase('tr'))}" data-g="${escapeHtml(it.group||'')}" title="${escapeHtml(it.title||it.name)}">
+      <img src="${it.img}" alt="${escapeHtml(it.name)}" loading="lazy" onerror="this.style.opacity=0.2">${it.label?`<span class="lbl">${escapeHtml(it.label)}</span>`:''}
+    </div>`;
+  }).join('');
   div.innerHTML=`
-    <div class="modal-card">
+    <div class="modal-card ${p.wide?'wide':''}">
       <div class="modal-head">
         <h3>${escapeHtml(p.title)}</h3>
+        ${p.onClear?'<button class="back-btn" id="clearPick">Kaldır</button>':''}
         <button class="icon-btn" id="closePicker">×</button>
       </div>
-      <div class="modal-body">
-        <div class="picker-grid">
-          ${p.items.map(it=>`
-            <div class="picker-item" data-pick="${it.id}" title="${escapeHtml(it.name)}">
-              <img src="${it.img}" alt="${escapeHtml(it.name)}" onerror="this.style.opacity=0.2">
-            </div>`).join('')}
-        </div>
-      </div>
+      ${p.search?'<div class="modal-search"><input class="search-input" id="pickSearch" placeholder="Ara..." autocomplete="off"></div>':''}
+      <div class="modal-body"><div class="picker-grid ${p.gridClass||''}">${cells}</div></div>
     </div>`;
   document.body.appendChild(div);
+  div.querySelectorAll('.picker-grid').forEach(g=>{if(!g.children.length)g.remove();});
   div.querySelector('#closePicker').addEventListener('click',closePicker);
+  if(p.onClear)div.querySelector('#clearPick').addEventListener('click',p.onClear);
   div.addEventListener('click',e=>{if(e.target===div)closePicker();});
   div.querySelectorAll('[data-pick]').forEach(el=>{
     el.addEventListener('click',()=>{
@@ -499,9 +1136,20 @@ function renderPicker(){
       p.onPick(id);
     });
   });
+  const s=div.querySelector('#pickSearch');
+  if(s){
+    if(window.matchMedia('(hover:hover)').matches)s.focus();
+    s.addEventListener('input',()=>{
+      const q=s.value.trim().toLocaleLowerCase('tr');
+      const shown=new Set();
+      div.querySelectorAll('[data-pick]').forEach(el=>{const ok=!q||el.dataset.search.includes(q);el.style.display=ok?'':'none';if(ok)shown.add(el.dataset.g);});
+      div.querySelectorAll('.picker-group').forEach(h=>h.style.display=shown.has(h.dataset.group)?'':'none');
+    });
+  }
 }
 function closePicker(){state.picker=null;const m=document.getElementById('pickerModal');if(m)m.remove();}
 
+/* ================= JSON YEDEK ================= */
 document.getElementById('exportBtn').addEventListener('click',()=>{
   const blob=new Blob([JSON.stringify(state.data,null,2)],{type:'application/json'});
   const url=URL.createObjectURL(blob);
@@ -519,7 +1167,7 @@ document.getElementById('importFile').addEventListener('change',e=>{
       const parsed=JSON.parse(ev.target.result);
       if(confirm('Mevcut veriler değişecek. Devam?')){
         state.data=parsed;saveData();toast('İçe aktarıldı');
-        if(state.currentChampion)renderMatchup();else renderSelection();
+        if(state.currentChampion){ensureChampData(state.currentChampion);renderMatchup();}else renderSelection();
       }
     }catch(err){toast('Geçersiz JSON');}
   };
